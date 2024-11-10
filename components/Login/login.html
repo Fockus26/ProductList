@@ -1,64 +1,60 @@
-<section class="container d-flex flex-column justify-content-between align-items-center pt-5 pb-2" style="height: 100vh; max-width: 300px;">
-    <article style="width: 100%">
-        <div class="card-body d-flex align-items-center flex-column">
-            <form id="login-form" aria-labelledby="login-form-header">
-                <fieldset>
-                    <header class="d-flex justify-content-center mb-4">
-                        <img src="../../components/Login/assets/LOGO1.png" alt="Logo" class="img-fluid" style="max-width: 150px" />
-                    </header>
+<main id="login" class="container d-flex flex-column justify-content-between align-items-center">
+    <section class="card-body d-flex align-items-center flex-column">
+        <form id="login-form" aria-labelledby="login-form-header">
+            <fieldset>
+                <header class="text-center mb-4">
+                    <img src="./src/assets/LOGO1.png" alt="Logo" class="img-fluid" />
+                </header>
 
+                <!-- Input Control -->
+                <div class="group border rounded-1 text-bg-light d-flex flex-column" style="padding-right: 0px;">
                     <!-- Input Username -->
-                    <div class="group border b-1 rounded-1 text-bg-light d-flex flex-column gap-1" style="padding: 2.5px;">
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text border-white b-0 rounded-0" style="border-top-left-radius: 25px;"><i class="text-body-tertiary bi bi-person-fill"></i></span>
-                            <input type="text" class="text-body-tertiary form-control py-1 b-0 border-white rounded-0" placeholder="Username" aria-label="Username" data-bind="value: username" />
-                        </div>
-
-                        <!-- Input Password -->
-                        <div class="input-group flex-nowrap">
-                            <span class="input-group-text b-0 border-white rounded-0"><i class="text-body-tertiary bi bi-lock-fill"></i></span>
-                            <input type="password" id="password" placeholder="Password" class="text-body-tertiary form-control py-1 b-0 border-white rounded-0" aria-label="Password" data-bind="value: password" required />
-                        </div>
+                    <div class="input-group flex-nowrap border-0">
+                        <span class="input-group-text border-0"><i class="text-body-tertiary bi bi-person-fill"></i></span>
+                        <input type="text" class="text-body-tertiary form-control py-1 " placeholder="Username" aria-label="Username" data-bind="value: username" />
                     </div>
 
-                    <div class="d-flex justify-content-between mt-2 align-items-center">
-                        <!-- Remember me checkbox -->
-                        <div class="form-check ms-2">
-                            <input type="checkbox" style="cursor: pointer" id="rememberMe" class="form-check-input rounded-0" data-bind="checked: rememberMe" />
-                            <label class="form-check-label" style="color: #626e83" for="rememberMe">remember</label>
-                        </div>
+                    <!-- Input Password -->
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text border-0"><i class="text-body-tertiary bi bi-lock-fill"></i></span>
+                        <input type="password" id="password" placeholder="Password" class="text-body-tertiary form-control py-1" aria-label="Password" data-bind="value: password" required />
+                    </div>
+                </div>
 
-                        <!-- Conditionally Rendered Login Button if isLoading -->
-                        <div class="d-flex">
-                            <div class="text-center mt-3 me-3" data-bind="if: isLoading">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            </div>
-                            <div data-bind="ifnot: isLoading">
-                            <button type="submit" class="btn btn-lg px-4" style="color: white; background-color: #3b347c;" data-bind="click: login">
+                <div class="d-flex justify-content-between mt-2 align-items-center">
+                    <!-- Remember me checkbox -->
+                    <div class="form-check ms-2 d-flex gap-2">
+                        <input type="checkbox" style="cursor: pointer" id="rememberMe" class="form-check-input border-0" data-bind="checked: rememberMe" />
+                        <label class="form-check-label text-light text-opacity-50" for="rememberMe">remember</label>
+                    </div>
+
+                    <!-- Conditionally Rendered Login Button if isLoading -->
+                    <div>
+                        <div data-bind="ifnot: isLoading">
+                            <button type="submit" class="btn btn-lg px-4 text-white" data-bind="click: login">
                                 Log In
                             </button>
                         </div>
+                        <!-- Conditionally Rendered Loader -->
+                        <div data-bind="if: isLoading" class="text-center mt-1 me-2">
+                            <div class="spinner-border text-danger" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- Conditionally Rendered Loader -->
-                    
-                </fieldset>
-            </form>
-
-            <!-- Conditionally Rendered Error Message -->
-            <div data-bind="if: errorMessage">
-                <div class="alert alert-danger mt-3 d-flex align-items-center justify-content-between" style="width: 375px;" role="alert">
-                    <span data-bind="text: errorMessage"></span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-    </article>
+            </fieldset>
+        </form>
 
-    <article style="width: 100%; max-width: 250px; color: #626e83" class="text-center">
-        <span>web services under your control</span>
-    </article>
-</section>
+        <!-- Conditionally Rendered Error Message -->
+        <div data-bind="if: errorMessage">
+            <div class="alert alert-danger mt-3 d-flex align-items-center justify-content-between p-3" style="width: 320px;" role="alert">
+                <span data-bind="text: errorMessage"></span>
+                <button type="button" class="btn-close p-0" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div> 
+        </div>
+    </section>
+
+    <!-- Slogan -->
+    <span class="text-secondary">web services under your control</span>
+</main>

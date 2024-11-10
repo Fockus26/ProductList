@@ -1,19 +1,100 @@
-body {
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+/* Container General */
+.container {
     height: 100vh;
+    padding-top: 75px;
+    padding-bottom: 50px;
 }
 
-.input-group input:focus {
-    box-shadow: none!important;
-    border-left: 2px solid rgba(0, 123, 255, .25) !important;
+/* Container Login */
+#login {
+    max-width: 300px;
 }
 
-button[type='submit']:focus  {
+/* Form Img */
+#login-form header .img-fluid {
+    max-width: 150px;
+}
+
+/* Form Inputs */
+#login-form .input-group input {
+    border: none !important;
+    border-left: 2px solid transparent !important;
+}
+
+#login-form .input-group input:focus {
+    box-shadow: none !important;
+    border-left-color: hsl(245, 38%, 29%, .25) !important;
+}
+
+#login-form .input-group input, #login-form .input-group input::placeholder {
+    transition: .35s ease;
+}
+
+#login-form .input-group input:focus, #login-form .input-group input:focus::placeholder {
+    color: hsl(246, 41%, 40%) !important;
+}  
+
+#login-form .input-group span i {
+    transition: .5s ease !important;
+}
+
+#login-form .input-group:focus-within span {
+    transition: .35s ease;
+}
+
+/* #login-form .input-group:focus-within span {
+    background-color: hsl(246, 41%, 40%) !important;
+}
+
+#login-form .input-group:focus-within span i {
+    color: white !important;
+} */
+
+#login-form .input-group:focus-within span i {
+    color: hsl(246, 41%, 40%) !important;
+}
+
+/* Form Submit */
+#login-form button[type='submit'] {
+    background-color: #3b347c !important;
+}
+
+#login-form button[type='submit']:hover {
+    background-color: hsl(246, 41%, 40%) !important; 
+}
+
+#login-form button[type='submit']:focus {
     border-color: transparent !important;
 }
 
-.btn-close:focus {
+/* Remember Me */
+#login-form #rememberMe {
+    background-color: hsl(246, 41%, 45%) !important;
+}
+
+#login-form #rememberMe:focus {
     box-shadow: none !important;
 }
+
+#login-form .form-check label {
+    transition: .3s ease;
+}
+
+#login-form .form-check:hover label {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Error */
+#login .alert span {
+    font-size: 14px !important;
+}
+
+#login .btn-close {
+    font-size: 14px !important;
+    color: hsl(354, 61%, 21%) !important;
+}
+
+#login .btn-close:focus {
+    box-shadow: none !important;
+}
+
