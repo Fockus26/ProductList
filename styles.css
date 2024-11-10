@@ -1,0 +1,19 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.input-group input:focus {
+    box-shadow: none!important;
+    border-left: 2px solid rgba(0, 123, 255, .25) !important;
+}
+
+button[type='submit']:focus  {
+    border-color: transparent !important;
+}
+
+.btn-close:focus {
+    box-shadow: none !important;
+}
