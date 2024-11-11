@@ -3,7 +3,7 @@
 </style>
 
 <section id="products" class="container">
-    <div data-bind="if: isGotData">
+    <div data-bind="if: isDataLoaded">
         <!-- Manejo el titulo a mostrar si hay o no hay productos -->
         <div data-bind="if: allProducts().length">
             <!-- Mensaje si hay productos -->
@@ -69,7 +69,7 @@
             </nav>
         </div>
     </div>
-    <div data-bind="ifnot: isGotData">
+    <div data-bind="ifnot: isDataLoaded">
 
     </div>
 </section>
