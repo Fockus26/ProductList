@@ -1,9 +1,9 @@
-export function LoginViewModel({loginToken, context, isLogged}) {
-    this.username = ko.observable("");  
+export function LoginViewModel({loginToken, context}) {
+    this.username = ko.observable(localStorage.getItem("username") || "");  
     this.password = ko.observable(""); 
     this.mensaje = ko.observable(""); 
     this.isLoading = ko.observable(false); 
-    this.rememberMe = ko.observable(false);
+    this.rememberMe = ko.observable(localStorage.getItem("rememberMe") === "true");
     this.errorMessage = ko.observable("");
     this.loginToken = loginToken;
     this.appContext = context
@@ -32,11 +32,11 @@ export function LoginViewModel({loginToken, context, isLogged}) {
                 // Si la respuesta es exitosa y contiene un token
                 if (response.token) {
                     if (rememberMe) {
-                        isLogged(true);
-                        localStorage.setItem("isLogged", "true");
+                        localStorage.setItem("rememberMe", "true");
+                        localStorage.setItem("username", username);
                     } else {
-                        isLogged(false);
-                        localStorage.removeItem("isLogged");
+                        localStorage.removeItem("rememberMe");
+                        localStorage.removeItem("username");
                     }
                     this.loginToken(response.token);
                     this.errorMessage("");
