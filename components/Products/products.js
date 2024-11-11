@@ -11,7 +11,7 @@ export function ProductsViewModel({authToken}) {
     this.prevPage = ko.observable(this.actualPage() - 1)
     this.isPrevPage = ko.observable(false)
     this.authToken = authToken
-    this.isGotData = ko.observable(false)
+    this.isDataLoaded = ko.observable(false)
 
     // Agrega estilos dependiendo de la paginacion
     this.updatePaginationStyles = function() {
@@ -71,23 +71,14 @@ export function ProductsViewModel({authToken}) {
                     // Obtengo el total de paginas segun los productos que deben haber por pagina
                     this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage) - 1)
                     
-                    let listProducts = []
-                    // Por cada producto lo agregamos a una lista temporal que contendra los productos que deben de haber por pagina
-                    for (let indexProduct = 0; indexProduct < this.allProducts().length; indexProduct++ ) {
-                        // Agrego el producto a la lista temporal
-                        listProducts.push(this.allProducts()[indexProduct])
-
-                        // Si la lista alcanza el numero maximo de productos por pagina la agrega a una batchProducts
-                        if ((indexProduct + 1) % this.productsPerPage === 0) {
-                            this.batchProducts().push(listProducts);
-                            listProducts = []
-                        } 
-
-                        // Si terminamos de iterar y todavia hay productos en la lista temporal los agrega a batchProducts
-                        if ((indexProduct + 1) === this.allProducts().length && listProducts.length > 0) {
-                            this.batchProducts().push(listProducts);
-                        }
-                    }
+                        // Usamos Array.from para crear los lotes de productos
+                        const batches = Array.from({ length: this.totalPages() }, (_, index) => {
+                            return productsMap.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
+                        });
+                        
+                        // Establecemos el valor de batchProducts con los lotes generados
+                        this.batchProducts(batches);
+                   
                 } 
             },
             error: ({error}) => {
@@ -95,7 +86,7 @@ export function ProductsViewModel({authToken}) {
               
             },
             complete: () => {
-                this.isGotData(true)
+                this.isDataLoaded(true)
                 this.updatePaginationStyles();
             },
         });
