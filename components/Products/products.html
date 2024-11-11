@@ -1,5 +1,5 @@
 <style>
-    body {background-color: hsl(246, 39%, 95%);}
+    body {background-color: hsl(246, 39%, 25%)}
 </style>
 
 <section id="products" class="container">
@@ -17,20 +17,20 @@
         <div data-bind="if: allProducts().length">
             <main class="row gap-4">
                 <!-- Filtro -->
-                <aside class="col-2 d-flex flex-column" style="background-color: pink;">
+                <aside class="col-2 d-flex flex-column filter">
                     Filtros
                 </aside>
                 <!-- Productos -->
                 <section class="col-10 row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">
                     <!-- Producto -->
                     <article class="col" >
-                        <div class="card">
+                        <div class="card border-0">
                             <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
                             <div class="card-body d-flex flex-column">
                                 <h3 class="card-title" data-bind="text: name"></h3>
                                 <p class="card-text" data-bind="text: description"></p>
                                 <p class="card-text"><strong><span data-bind="text: price"></span></strong></p>
-                                <div>
+                                <div class="card-btn">
                                     <a href="#" class="btn text-white">View Details</a>
                                 </div>
                             </div>

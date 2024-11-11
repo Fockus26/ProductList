@@ -1,9 +1,10 @@
-/* Container General */
-.container {
-    height: 100vh;
-    padding-top: 75px;
-    padding-bottom: 50px;
-}
+/* Estilos Generales */
+    /* Container General */
+    .container {
+        height: 100vh;
+        padding-top: 75px;
+        padding-bottom: 50px;
+    }
 
 /* Login Component */
 
@@ -93,38 +94,60 @@
     }
 
 /* Products Component */
+    #products h2 {
+        color: hsl(246, 39%, 95%)
+    }
 
-#products h2 {
-    color: hsl(246, 39%, 15%)
-}
+    #products .row {
+        gap: 60px 0px;
+    }
 
-#products .row {
-    gap: 60px 0px;
-}
+    /* Filter */
+    #products .filter {
+        background-color: hsl(246, 39%, 7.5%);
+        border-radius: 10px;
+        color: hsl(246, 39%, 90%);
+    }
 
-/* Crad Product */
-#products .card {
-    height: 100%;
-}
+    /* Card Product */
+    #products .card {
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-#products .card-img-top {
-    object-fit: cover;
-    width: auto;
-    height: 250px;
-}
+    #products .card-img-top {
+        object-fit: cover;
+        width: auto;
+        height: 250px;
+    }
 
-#products .card-body h3 {
-    color: hsl(246, 39%, 30%);
-}
+    #products .card-body {
+        background-color: hsl(246, 39%, 7.5%);
+    }
 
-#products .card-body div {
-    height: 100%;
-    display: flex;
-}
+    #products .card-body .card-title {
+        font-size: 1.85vw;
+        color: hsl(246, 39%, 90%);
+    }
 
-#products .card-body .btn {
-    background-color: hsl(246, 39%, 30%);
-}
+    #products .card-body .card-text {
+        color: hsl(246, 39%, 90%);
+    }
+    
+    #products .card-body .card-btn {
+        height: 100%;
+        display: flex;
+    }
+
+    #products .card-body .card-btn .btn {
+        align-self: flex-end;
+        background-color: hsl(246, 39%, 30%);
+    }
+
+    #products .card-body .card-btn .btn:hover {
+        background-color: hsl(246, 39%, 40%);
+    }
 
     /* Pagination Product */
     #products .pagination .page-item {
