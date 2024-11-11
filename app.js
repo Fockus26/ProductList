@@ -1,4 +1,3 @@
-
 import LoginTemplate from "./components/Login/login.html"
 import ProductsTemplate from "./components/Products/products.html"
 import { LoginViewModel } from "./components/Login/login.js";
@@ -6,7 +5,6 @@ import { ProductsViewModel } from "./components/Products/products.js";
 import "./styles.css"
 
  function AppViewModel() {
-
     this.loginToken = ko.observable("");
 
     const appModel = this
