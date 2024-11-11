@@ -1,5 +1,4 @@
-
-export function LoginViewModel({loginToken, context}) {
+export function LoginViewModel({loginToken, context, isLogged}) {
     this.username = ko.observable("");  
     this.password = ko.observable(""); 
     this.mensaje = ko.observable(""); 
@@ -8,15 +7,14 @@ export function LoginViewModel({loginToken, context}) {
     this.errorMessage = ko.observable("");
     this.loginToken = loginToken;
     this.appContext = context
+
     this.login = () => {
-       
         const username = this.username();
         const password = this.password();
+        const rememberMe = this.rememberMe();
 
-      
         this.isLoading(true);  
         this.errorMessage(""); 
-
        
         if (!username || !password) {
             this.errorMessage("Please type your Username and Password.");
@@ -33,6 +31,13 @@ export function LoginViewModel({loginToken, context}) {
             success: (response) => {
                 // Si la respuesta es exitosa y contiene un token
                 if (response.token) {
+                    if (rememberMe) {
+                        isLogged(true);
+                        localStorage.setItem("isLogged", "true");
+                    } else {
+                        isLogged(false);
+                        localStorage.removeItem("isLogged");
+                    }
                     this.loginToken(response.token);
                     this.errorMessage("");
                     this.username("");
@@ -51,7 +56,6 @@ export function LoginViewModel({loginToken, context}) {
                 this.errorMessage(`${msg}`);
             },
             complete: () => {
-                
                 this.isLoading(false);
             }
         });
