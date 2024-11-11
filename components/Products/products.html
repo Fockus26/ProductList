@@ -2,17 +2,10 @@
     body {background-color: hsl(246, 39%, 25%)}
 </style>
 
+<!-- <img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }"> -->
+
 <section id="products" class="container">
     <div data-bind="if: isDataLoaded">
-        <!-- Manejo el titulo a mostrar si hay o no hay productos -->
-        <div data-bind="if: allProducts().length">
-            <!-- Mensaje si hay productos -->
-            <h2 data-bind="if: allProducts().length" class="text-center mb-5">Lista de Productos</h2>
-        </div>
-        <div data-bind="ifnot: allProducts().length">
-            <!-- Mensaje si no hay productos -->
-            <h2 data-bind="ifnot: allProducts().length" class="text-center text-muted">No se han encontrado productos</h2>
-        </div>
         <!-- Muestro los productos si hay -->
         <div data-bind="if: allProducts().length">
             <main class="row gap-4">
@@ -25,7 +18,9 @@
                     <!-- Producto -->
                     <article class="col" >
                         <div class="card border-0">
-                            <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
+                            <img onerror='this.onImageError = function(data, event) {
+                                event.target.src = "https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg"
+                                }' class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
                             <div class="card-body d-flex flex-column">
                                 <h3 class="card-title" data-bind="text: name"></h3>
                                 <p class="card-text" data-bind="text: description"></p>
@@ -70,6 +65,47 @@
         </div>
     </div>
     <div data-bind="ifnot: isDataLoaded">
-
+        <main class="row gap-4 skeleton">
+            <aside class="col-2 d-flex flex-column filter loading-product">
+                <h3></h3>
+                <div></div>
+            </aside>
+            <section class="col-10 row row-cols-3">
+                <!-- Producto -->
+                <article class="col" >
+                    <div class="card border-0 loading-product">
+                        <span class="card-img-top"></span>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title"></h3>
+                            <p class="card-text description"></p>
+                            <p class="card-text price"><strong><span></span></strong></p>
+                            <a href="#" class="btn text-white"></a>
+                        </div>
+                    </div>
+                </article>
+                <article class="col" >
+                    <div class="card border-0 loading-product">
+                        <span class="card-img-top"></span>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title"></h3>
+                            <p class="card-text description"></p>
+                            <p class="card-text price"><strong><span></span></strong></p>
+                            <a href="#" class="btn text-white"></a>
+                        </div>
+                    </div>
+                </article>
+                <article class="col" >
+                    <div class="card border-0 loading-product">
+                        <span class="card-img-top"></span>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title"></h3>
+                            <p class="card-text description"></p>
+                            <p class="card-text price"><strong><span></span></strong></p>
+                            <a href="#" class="btn text-white"></a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
     </div>
 </section>

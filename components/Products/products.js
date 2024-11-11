@@ -1,8 +1,10 @@
 import { Product } from "./product"
 
 export function ProductsViewModel({authToken}) {
+    // Product Variables
     this.allProducts = ko.observableArray([])
     this.batchProducts = ko.observableArray([])
+    // Pagination Variables
     this.productsPerPage = 15
     this.totalPages = ko.observable()
     this.actualPage = ko.observable(1)
@@ -10,6 +12,12 @@ export function ProductsViewModel({authToken}) {
     this.isNextPage = ko.observable(true)
     this.prevPage = ko.observable(this.actualPage() - 1)
     this.isPrevPage = ko.observable(false)
+    // Banner Variables
+    this.banner = {
+        src:'https://arredo.vtexassets.com/assets/vtex.file-manager-graphql/images/b26190a9-6695-45e7-b0b8-ea09245545e1___d28ce184f1a8f133681abe1d5ade5e65.png',
+        alt: 'banner'
+    }
+    // Another Variables
     this.authToken = authToken
     this.isDataLoaded = ko.observable(false)
 
@@ -71,13 +79,13 @@ export function ProductsViewModel({authToken}) {
                     // Obtengo el total de paginas segun los productos que deben haber por pagina
                     this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage) - 1)
                     
-                        // Usamos Array.from para crear los lotes de productos
-                        const batches = Array.from({ length: this.totalPages() }, (_, index) => {
-                            return productsMap.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
-                        });
-                        
-                        // Establecemos el valor de batchProducts con los lotes generados
-                        this.batchProducts(batches);
+                    // Usamos Array.from para crear los lotes de productos
+                    const batches = Array.from({ length: this.totalPages() }, (_, index) => {
+                        return productsMap.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
+                    });
+                    
+                    // Establecemos el valor de batchProducts con los lotes generados
+                    this.batchProducts(batches);
                    
                 } 
             },
