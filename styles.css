@@ -1,12 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(to bottom, hsl(246, 39%, 33%), hsl(246, 37%, 20%));
-    background-repeat: no-repeat;
-}
-
-
 /* Container General */
 .container {
     height: 100vh;
@@ -14,96 +5,158 @@ body {
     padding-bottom: 50px;
 }
 
-/* Container Login */
-#login {
-    max-width: 300px;
+/* Login Component */
+
+    /* Container Login */
+    #login {
+        max-width: 300px;
+    }
+
+    /* Form Img */
+    #login-form header .img-fluid {
+        max-width: 150px;
+    }
+
+    /* Form Inputs */
+    #login-form .input-group input {
+        border: none !important;
+        border-left: 2px solid transparent !important;
+    }
+
+    #login-form .input-group input:focus {
+        box-shadow: none !important;
+        border-left-color: hsl(245, 38%, 29%, .25) !important;
+    }
+
+    #login-form .input-group input, #login-form .input-group input::placeholder {
+        transition: .35s ease;
+    }
+
+    #login-form .input-group input:focus, #login-form .input-group input:focus::placeholder {
+        color: hsl(246, 41%, 40%) !important;
+    }  
+
+    #login-form .input-group span i {
+        transition: .5s ease !important;
+    }
+
+    #login-form .input-group:focus-within span {
+        transition: .35s ease;
+    }
+
+    #login-form .input-group:focus-within span i {
+        color: hsl(246, 41%, 40%) !important;
+    }
+
+    /* Form Submit */
+    #login-form button[type='submit'] {
+        background-color: #3b347c !important;
+    }
+
+    #login-form button[type='submit']:hover {
+        background-color: hsl(246, 41%, 40%) !important; 
+    }
+
+    #login-form button[type='submit']:focus {
+        border-color: transparent !important;
+    }
+
+    /* Remember Me */
+    #login-form #rememberMe {
+        background-color: hsl(246, 41%, 45%) !important;
+    }
+
+    #login-form #rememberMe:focus {
+        box-shadow: none !important;
+    }
+
+    #login-form .form-check label {
+        transition: .3s ease;
+    }
+
+    #login-form .form-check:hover label {
+        color: rgba(255, 255, 255, 0.75) !important;
+    }
+
+    /* Error */
+    #login .alert span {
+        font-size: 14px !important;
+    }
+
+    #login .btn-close {
+        font-size: 14px !important;
+        color: hsl(354, 61%, 21%) !important;
+    }
+
+    #login .btn-close:focus {
+        box-shadow: none !important;
+    }
+
+/* Products Component */
+
+#products h2 {
+    color: hsl(246, 39%, 15%)
 }
 
-/* Form Img */
-#login-form header .img-fluid {
-    max-width: 150px;
+#products .row {
+    gap: 60px 0px;
 }
 
-/* Form Inputs */
-#login-form .input-group input {
-    border: none !important;
-    border-left: 2px solid transparent !important;
+/* Crad Product */
+#products .card {
+    height: 100%;
 }
 
-#login-form .input-group input:focus {
-    box-shadow: none !important;
-    border-left-color: hsl(245, 38%, 29%, .25) !important;
+#products .card-img-top {
+    object-fit: cover;
+    width: auto;
+    height: 250px;
 }
 
-#login-form .input-group input, #login-form .input-group input::placeholder {
-    transition: .35s ease;
+#products .card-body h3 {
+    color: hsl(246, 39%, 30%);
 }
 
-#login-form .input-group input:focus, #login-form .input-group input:focus::placeholder {
-    color: hsl(246, 41%, 40%) !important;
-}  
-
-#login-form .input-group span i {
-    transition: .5s ease !important;
+#products .card-body div {
+    height: 100%;
+    display: flex;
 }
 
-#login-form .input-group:focus-within span {
-    transition: .35s ease;
+#products .card-body .btn {
+    background-color: hsl(246, 39%, 30%);
 }
 
-/* #login-form .input-group:focus-within span {
-    background-color: hsl(246, 41%, 40%) !important;
-}
+    /* Pagination Product */
+    #products .pagination .page-item {
+        width: 45px !important;
+    }
+    #products .pagination .page-item .page-link:focus {
+        box-shadow: none !important;
+        background-color: hsl(246, 39%, 90%);
+    }
 
-#login-form .input-group:focus-within span i {
-    color: white !important;
-} */
+    #products .pagination .page-item .page-link {
+        color: hsl(246, 39%, 30%) !important;
+        border-color: hsl(246, 39%, 30%) !important;
+        background-color: transparent !important;
+        height: 40px !important;
+    }
 
-#login-form .input-group:focus-within span i {
-    color: hsl(246, 41%, 40%) !important;
-}
+    /* Con esto no utilizo bordes innecesarios y arreglo el problema del gorde grueso */
+    #products .pagination .page-item .page-link:not([aria-label='Next'], [aria-label='Previous']) {
+        border-left: none !important;
+        border-right: none !important;
+    }
 
-/* Form Submit */
-#login-form button[type='submit'] {
-    background-color: #3b347c !important;
-}
+    #products .pagination .page-item .page-link:hover {
+        color: hsl(246, 38%, 95%) !important;
+        border-color: hsl(246, 39%, 40%) !important;
+        background-color: hsl(246, 39%, 40%) !important;
+    }
 
-#login-form button[type='submit']:hover {
-    background-color: hsl(246, 41%, 40%) !important; 
-}
-
-#login-form button[type='submit']:focus {
-    border-color: transparent !important;
-}
-
-/* Remember Me */
-#login-form #rememberMe {
-    background-color: hsl(246, 41%, 45%) !important;
-}
-
-#login-form #rememberMe:focus {
-    box-shadow: none !important;
-}
-
-#login-form .form-check label {
-    transition: .3s ease;
-}
-
-#login-form .form-check:hover label {
-    color: rgba(255, 255, 255, 0.75) !important;
-}
-
-/* Error */
-#login .alert span {
-    font-size: 14px !important;
-}
-
-#login .btn-close {
-    font-size: 14px !important;
-    color: hsl(354, 61%, 21%) !important;
-}
-
-#login .btn-close:focus {
-    box-shadow: none !important;
-}
+    #products .pagination .page-item.active .page-link {
+        color: hsl(246, 38%, 95%)!important;
+        border-color: hsl(246, 39%, 30%) !important;
+        background-color: hsl(246, 39%, 30%) !important;
+    }
 
