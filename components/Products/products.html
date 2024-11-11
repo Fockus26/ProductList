@@ -1,25 +1,75 @@
-<section class="container my-5">
-  
-    <div data-bind="if: productList().length">
-        <h2 class="text-center">Lista de Productos</h2>
+<style>
+    body {background-color: hsl(246, 39%, 95%);}
+</style>
 
-        <div class="row">
-            <div class="col-12 col-md-4 mb-4" data-bind="foreach: productList">
-                <div class="card shadow-sm">
-                    <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
-                    <div class="card-body">
-                        <h5 class="card-title" data-bind="text: name"></h5>
-                        <p class="card-text" data-bind="text: description"></p>
-                        <p class="card-text"><strong><span data-bind="text: price"></span></strong></p>
-                        <a href="#" class="btn btn-primary">View Details</a>
+<section id="products" class="container">
+    <div data-bind="if: isGotData">
+        <!-- Manejo el titulo a mostrar si hay o no hay productos -->
+        <div data-bind="if: allProducts().length">
+            <!-- Mensaje si hay productos -->
+            <h2 data-bind="if: allProducts().length" class="text-center mb-5">Lista de Productos</h2>
+        </div>
+        <div data-bind="ifnot: allProducts().length">
+            <!-- Mensaje si no hay productos -->
+            <h2 data-bind="ifnot: allProducts().length" class="text-center text-muted">No se han encontrado productos</h2>
+        </div>
+        <!-- Muestro los productos si hay -->
+        <div data-bind="if: allProducts().length">
+            <main class="row gap-4">
+                <!-- Filtro -->
+                <aside class="col-2 d-flex flex-column" style="background-color: pink;">
+                    Filtros
+                </aside>
+                <!-- Productos -->
+                <section class="col-10 row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">
+                    <!-- Producto -->
+                    <article class="col" >
+                        <div class="card">
+                            <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="card-title" data-bind="text: name"></h3>
+                                <p class="card-text" data-bind="text: description"></p>
+                                <p class="card-text"><strong><span data-bind="text: price"></span></strong></p>
+                                <div>
+                                    <a href="#" class="btn text-white">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </main>
+
+            <!-- Paginacion -->
+            <nav aria-label="Page navigation" class="py-5">
+                <ul class="pagination justify-content-center mb-0">
+                    <div data-bind="if: isPrevPage()" class="d-flex">
+                        <li class="page-item text-center" data-bind="click: () => handlePagination('prev')">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item text-center" data-bind="click: () => handlePagination(prevPage())">
+                            <a class="page-link rounded-0" href="#" data-bind="text: prevPage()"></a>
+                        </li>
                     </div>
-                </div>
-            </div>
+                    <li class="page-item text-center active" data-bind="click: () => handlePagination(actualPage())">
+                        <a class="page-link" href="#" data-bind="text: actualPage()"></a>
+                    </li>
+                    <div data-bind="if: isNextPage()" class="d-flex">
+                        <li class="page-item text-center" data-bind="click: () => handlePagination(nextPage())">
+                            <a class="page-link rounded-0" href="#" data-bind="text: nextPage()"></a>
+                        </li>
+                        <li class="page-item text-center" data-bind="click: () => handlePagination('next')">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
         </div>
     </div>
+    <div data-bind="ifnot: isGotData">
 
-    <!-- Mensaje si no hay productos -->
-    <div data-bind="ifnot: productList().length">
-        <h4 class="text-center text-muted">No se han encontrado productos</h4>
     </div>
 </section>

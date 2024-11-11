@@ -1,9 +1,61 @@
 import { Product } from "./product"
 
 export function ProductsViewModel({authToken}) {
-
-    this.productList = ko.observableArray([])
+    this.allProducts = ko.observableArray([])
+    this.batchProducts = ko.observableArray([])
+    this.productsPerPage = 15
+    this.totalPages = ko.observable()
+    this.actualPage = ko.observable(1)
+    this.nextPage = ko.observable(this.actualPage() + 1)
+    this.isNextPage = ko.observable(true)
+    this.prevPage = ko.observable(this.actualPage() - 1)
+    this.isPrevPage = ko.observable(false)
     this.authToken = authToken
+    this.isGotData = ko.observable(false)
+
+    // Agrega estilos dependiendo de la paginacion
+    this.updatePaginationStyles = function() {
+        const $activePageLink = $(".page-item.active > .page-link");
+
+        // Agrega 'rounded-start-5' si no hay página previa
+        if (!this.isPrevPage()) {
+            $activePageLink.removeClass("rounded-0");
+            $activePageLink.addClass("rounded-start-2");
+        } else {
+            $activePageLink.addClass("rounded-0");
+            $activePageLink.removeClass("rounded-start-2");
+        }
+
+        // Agrega 'rounded-end-5' si no hay página siguiente
+        if (!this.isNextPage()) {
+            $activePageLink.removeClass("rounded-0");
+            $activePageLink.addClass("rounded-end-2");
+        } else {
+            $activePageLink.addClass("rounded-0");
+            $activePageLink.removeClass("rounded-end-2");
+        }
+    };
+
+
+    // Maneja la paginacion
+    this.handlePagination = function(direction) {
+        if (direction === 'next') {
+            this.actualPage(this.actualPage() + 1)
+        } else if (direction === 'prev') {
+            this.actualPage(this.actualPage() - 1)
+        } else {
+            this.actualPage(this.actualPage() === direction ? this.actualPage() : this.actualPage() < direction ? this.actualPage() + 1 : this.actualPage() - 1)
+        }
+        
+        this.prevPage(this.actualPage() - 1)
+        this.isPrevPage(this.actualPage() > 1)
+        this.nextPage(this.actualPage() + 1)
+        this.isNextPage(this.actualPage() < this.totalPages())
+
+        // Actualiza los estilos de paginación después de cambiar la página
+        this.updatePaginationStyles();
+    }
+
     this.getData = function(token) {
        
         $.ajax({
@@ -12,11 +64,30 @@ export function ProductsViewModel({authToken}) {
             contentType: "application/json",
             headers: {'Authorization': 'Bearer ' + token},
             success: (response) => {
-               
                 if (response) {
-                    console.log("response", response)
-                   const productsMap = response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures }))
-                   this.productList(productsMap)
+                    const productsMap = response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures }))
+                    // Obtengo todos los productos
+                    this.allProducts(productsMap)
+                    // Obtengo el total de paginas segun los productos que deben haber por pagina
+                    this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage) - 1)
+                    
+                    let listProducts = []
+                    // Por cada producto lo agregamos a una lista temporal que contendra los productos que deben de haber por pagina
+                    for (let indexProduct = 0; indexProduct < this.allProducts().length; indexProduct++ ) {
+                        // Agrego el producto a la lista temporal
+                        listProducts.push(this.allProducts()[indexProduct])
+
+                        // Si la lista alcanza el numero maximo de productos por pagina la agrega a una batchProducts
+                        if ((indexProduct + 1) % this.productsPerPage === 0) {
+                            this.batchProducts().push(listProducts);
+                            listProducts = []
+                        } 
+
+                        // Si terminamos de iterar y todavia hay productos en la lista temporal los agrega a batchProducts
+                        if ((indexProduct + 1) === this.allProducts().length && listProducts.length > 0) {
+                            this.batchProducts().push(listProducts);
+                        }
+                    }
                 } 
             },
             error: ({error}) => {
@@ -24,10 +95,12 @@ export function ProductsViewModel({authToken}) {
               
             },
             complete: () => {
-               
+                this.isGotData(true)
+                this.updatePaginationStyles();
             },
         });
     }
-  
+
     this.getData(this.authToken())
+
 }

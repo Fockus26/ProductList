@@ -1,6 +1,6 @@
 export function LoginViewModel({loginToken, context}) {
     this.username = ko.observable(localStorage.getItem("username") || "");  
-    this.password = ko.observable(""); 
+    this.password = ko.observable("ch411enge"); 
     this.mensaje = ko.observable(""); 
     this.isLoading = ko.observable(false); 
     this.rememberMe = ko.observable(localStorage.getItem("rememberMe") === "true");
