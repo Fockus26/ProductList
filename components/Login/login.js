@@ -24,7 +24,6 @@ export function LoginViewModel({loginToken, context}) {
             return;
         }
 
-        // Enviar el request POST usando jQuery Ajax
         $.ajax({
             url: "http://vps.churrasco.digital:3000/login",  // URL del endpoint de login
             method: "POST",
@@ -57,6 +56,5 @@ export function LoginViewModel({loginToken, context}) {
         });
     };
 
-    $('body').css('background', 'linear-gradient(to bottom, hsl(246, 39%, 33%), hsl(246, 37%, 20%))');
-    $('body').css('background-repeat', 'no-repeat')
+   
 }

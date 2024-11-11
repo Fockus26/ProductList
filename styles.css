@@ -1,3 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(to bottom, hsl(246, 39%, 33%), hsl(246, 37%, 20%));
+    background-repeat: no-repeat;
+}
+
+
 /* Container General */
 .container {
     height: 100vh;
