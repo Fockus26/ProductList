@@ -5,7 +5,7 @@ import { ProductsViewModel } from "./components/Products/products.js";
 import "./styles.css"
 
  function AppViewModel() {
-    this.loginToken = ko.observable("");z
+    this.loginToken = ko.observable("");
 
     const appModel = this
     this.router = Sammy(function () {
