@@ -1,96 +1,94 @@
-<style>
-    body {background-color: hsl(246, 39%, 25%)}
-</style>
-<main id="products">
-<img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }">
-
-<section  class="container">
-    <div data-bind="if: isDataLoaded">
+<div class="container" id="products">
+    <img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }">
+    <div data-bind="if: isDataLoaded && allProducts().length">
         <!-- Muestro los productos si hay -->
-        <div data-bind="if: allProducts().length">
-            <nav class="d-flex justify-content-between align-items-center mb-3">
-                <div class="sort">
-                    <button data-bind="click: handleShowOptions" class="btn btn-md d-flex gap-2 align-items-center p-0">
-                        <i class="bi"></i>
-                        <span>Ordenar:</span>
-                        <span data-bind="text: actualOption"></span>
-                    </button>
+        <nav class="d-flex justify-content-between align-items-center mb-3">
+            <div class="sort">
+                <button data-bind="click: handleShowOptions" class="btn btn-md d-flex gap-2 align-items-center p-0">
+                    <i class="bi"></i>
+                    <span>Ordenar:</span>
+                    <span data-bind="text: actualOption"></span>
+                </button>
 
-                    <ul class="options rounded-2" data-bind="if: showOptions">
-                        <div data-bind="foreach: options">
-                            <div data-bind="click: () => $parent.selectOption($data.title)" class="option d-flex align-items-center justify-content-between">
-                                <li data-bind="text: $data.title">
-                                </li>
+                <ul class="options rounded-2" data-bind="if: showOptions">
+                    <div data-bind="foreach: options">
+                        <div data-bind="click: () => $parent.selectOption($data.title)" class="option d-flex align-items-center justify-content-between">
+                            <li data-bind="text: $data.title">
+                            </li>
 
-                                <i data-bind="attr: { 'aria-label': $data.type }" class="bi"> </i>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-
-                <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2">Add Product <i class="bi bi-plus-circle-fill"></i></a>
-            </nav>
-
-            <div data-bind="if: showCurrencies">
-                <section class="panel-currencies">
-                    <h4 class="text-center">Select your currency</h4>
-                    <ul data-bind="foreach: currencies">
-                        <div>
-                            <button role="checkbox"></button>
-                            <li data-bind="text: $data"></li>
-                        </div>
-                    </ul>
-                </section>
-            </div>
-
-            <!-- Productos -->
-            <main class="row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">
-                <!-- Producto -->
-                <article class="col" >
-                    <div class="card border-0">
-                        <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
-                    
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="card-title" data-bind="text: name"></h3>
-                            <p class="card-text description" data-bind="text: description"></p>
-                            <p class="card-text price"><strong><span data-bind="text: pricing"></span></strong></p>
-                            <div class="card-btn">
-                                <a href="#" class="btn text-white">View Details</a>
-                            </div>
+                            <i data-bind="attr: { 'aria-label': $data.type }" class="bi"> </i>
                         </div>
                     </div>
-                </article>
-            </main>
+                </ul>
+            </div>
 
-            <!-- Pagination -->
-            <nav aria-label="Page navigation" class="py-5">
-                <ul class="pagination justify-content-center mb-0">
-                    <div data-bind="if: isPrevPage()" class="d-flex">
+            <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2 large">Add Product <i class="bi bi-plus-circle-fill"></i></a>
+            <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2 small">Add<i class="bi bi-plus-circle-fill"></i></a>
+        </nav>
+
+        <!-- Filter -->
+        <div data-bind="if: showCurrencies">
+            <section class="panel-currencies">
+                <h4 class="text-center">Select your currency</h4>
+                <ul data-bind="foreach: currencies">
+                    <div>
+                        <button role="checkbox"></button>
+                        <li data-bind="text: $data"></li>
+                    </div>
+                </ul>
+            </section>
+        </div>
+
+        <!-- Productos -->
+        <main class="products" data-bind="foreach: batchProducts()[actualPage()]">
+            <!-- Producto -->
+            <article class="product card border-0" >
+                <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
+            
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title" data-bind="text: name"></h3>
+                    <p class="card-text description" data-bind="text: description"></p>
+                    <p class="card-text price"><strong><span data-bind="text: pricing"></span></strong></p>
+                    <div class="card-btn">
+                        <a href="#" class="btn text-white">View Details</a>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="py-5">
+            <ul class="pagination justify-content-center mb-0 rounded-2">
+                <div data-bind="if: isPrevPage()" class="d-flex">
+                    <div data-bind="if: actualPage() - 1 > 1">
                         <li class="page-item text-center" data-bind="click: () => handlePagination('prev')">
-                            <a class="page-link" href="#" aria-label="Previous">
+                            <a class="page-link rounded-0" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item text-center" data-bind="click: () => handlePagination(prevPage())">
-                            <a class="page-link rounded-0" href="#" data-bind="text: prevPage()"></a>
-                        </li>
                     </div>
-                    <li class="page-item text-center active" data-bind="click: () => handlePagination(actualPage())">
-                        <a class="page-link" href="#" data-bind="text: actualPage()"></a>
+                    <li class="page-item text-center" data-bind="click: () => handlePagination(prevPage())">
+                        <a class="page-link rounded-0" href="#" data-bind="text: prevPage()"></a>
                     </li>
-                    <div data-bind="if: isNextPage()" class="d-flex">
-                        <li class="page-item text-center" data-bind="click: () => handlePagination(nextPage())">
-                            <a class="page-link rounded-0" href="#" data-bind="text: nextPage()"></a>
-                        </li>
+                </div>
+                <li class="page-item text-center active" data-bind="click: () => handlePagination(actualPage())">
+                    <a class="page-link" href="#" data-bind="text: actualPage()"></a>
+                </li>
+                <div data-bind="if: isNextPage()" class="d-flex">
+                    <li class="page-item text-center" data-bind="click: () => handlePagination(nextPage())">
+                        <a class="page-link rounded-0" href="#" data-bind="text: nextPage()"></a>
+                    </li>
+                    <div>
+                    <div data-bind="if: nextPage() !== totalPages() - 1">
                         <li class="page-item text-center" data-bind="click: () => handlePagination('next')">
-                            <a class="page-link" href="#" aria-label="Next">
+                            <a class="page-link rounded-0" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                     </div>
-                </ul>
-            </nav>
-        </div>
+                </div>
+            </ul>
+        </nav>
     </div>
     <div data-bind="ifnot: isDataLoaded">
         <main class="skeleton row row-cols-3">
@@ -130,6 +128,4 @@
             </article>
         </main>
     </div>
-</section>
-
-</main>
+</div>

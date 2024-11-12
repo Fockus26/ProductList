@@ -6,7 +6,7 @@ export function ProductsViewModel({authToken, context}) {
         src:'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
         alt: 'churrasco banner'
     }
-    
+
     // Cuando la url no regresa una imagen
     this.errorImg = function(data, event) {
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
@@ -21,6 +21,7 @@ export function ProductsViewModel({authToken, context}) {
         this.isNextPage = ko.observable(true)
         this.prevPage = ko.observable(this.actualPage() - 1)
         this.isPrevPage = ko.observable(false)
+        this.scrollTimeout = null;
         // Agrega estilos dependiendo de la paginacion
         this.updatePaginationStyles = function() {
             const $activePageLink = $(".page-item.active > .page-link");
@@ -56,10 +57,18 @@ export function ProductsViewModel({authToken, context}) {
             this.prevPage(this.actualPage() - 1)
             this.isPrevPage(this.actualPage() > 1)
             this.nextPage(this.actualPage() + 1)
-            this.isNextPage(this.actualPage() < this.totalPages())
+            this.isNextPage(this.actualPage() < this.totalPages() - 1)
 
             // Actualiza los estilos de paginación después de cambiar la página
             this.updatePaginationStyles();
+            // // Si ya existe un temporizador, cancelarlo
+            // if (this.scrollTimeout) {
+            //     clearTimeout(this.scrollTimeout);
+            // }
+            // // Espera 2 segundos antes de hacer scroll hasta el contenedor de los productos
+            // this.scrollTimeout = setTimeout(() => {
+            //     document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+            // }, 500); 
         }
 
     // Sort
@@ -154,8 +163,6 @@ export function ProductsViewModel({authToken, context}) {
                 } else if (value === 'desc') {  
                     products = products.sort((a, b) => b.price - a.price); // Orden descendente
                 }
-
-                console.log(products)
             }
         
             // Después de ordenar, creamos los lotes de productos
@@ -177,7 +184,7 @@ export function ProductsViewModel({authToken, context}) {
                         // Obtengo todos los productos
                         this.allProducts(response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures })))
                         // Obtengo el total de paginas segun los productos que deben haber por pagina
-                        this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage) - 1)
+                        this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
                         // Obtenemos lotes de productos segun la cantidad maxima que debe haber en una pagina
                         this.groupProducts()
 
