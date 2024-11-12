@@ -1,7 +1,7 @@
-<main class="container mt-5">
+<main class="container mt-5" id="create">
     <section aria-labelledby="form-title">
-        <h1 id="form-title" class="mb-4">Crear Producto</h1>
-        <form data-bind="submit: enviarFormulario">
+        <h1 id="form-title" class="mb-4">Create Product</h1>
+        <form data-bind="submit: submitForm">
 
             <!-- SKU -->
             <div class="mb-3">
@@ -9,46 +9,46 @@
                 <input type="text" id="sku" class="form-control" data-bind="value: sku" required>
             </div>
 
-            <!-- Código -->
+            <!-- Code -->
             <div class="mb-3">
-                <label for="code" class="form-label">Código</label>
+                <label for="code" class="form-label">Code</label>
                 <input type="number" id="code" class="form-control" data-bind="value: code" required>
             </div>
 
-            <!-- Nombre -->
+            <!-- Name -->
             <div class="mb-3">
-                <label for="name" class="form-label">Nombre del Producto</label>
+                <label for="name" class="form-label">Product Name</label>
                 <input type="text" id="name" class="form-control" data-bind="value: name" required>
             </div>
 
-            <!-- Descripción -->
+            <!-- Description -->
             <div class="mb-3">
-                <label for="description" class="form-label">Descripción</label>
+                <label for="description" class="form-label">Description</label>
                 <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
             </div>
 
-            <!-- Imágenes (Permite múltiples archivos) -->
+            <!-- Images (Allows multiple files) -->
             <div class="mb-3">
-                <label for="pictures" class="form-label">Imágenes del Producto</label>
-                <input type="file" id="pictures" class="form-control" accept="image/*" multiple 
-                       data-bind="event: { change: actualizarImagenes }">
+                <label for="pictures" class="form-label">Product Images</label>
+                <input  multiple type="file" id="pictures" class="form-control" accept="image/*"
+           data-bind="event: { change: uploadImages }">
             </div>
 
-            <!-- Precio -->
+            <!-- Price -->
             <div class="mb-3">
-                <label for="price" class="form-label">Precio</label>
+                <label for="price" class="form-label">Price</label>
                 <input type="number" id="price" class="form-control" min="0" step="0.01" data-bind="value: price" required>
             </div>
 
-            <!-- Moneda -->
+            <!-- Currency -->
             <div class="mb-3">
-                <label for="currency" class="form-label">Moneda</label>
+                <label for="currency" class="form-label">Currency</label>
                 <input type="text" id="currency" class="form-control" data-bind="value: currency" required>
             </div>
 
-            <!-- Botón de Enviar -->
+            <!-- Submit Button -->
             <div class="text-center">
-                <button type="button" class="btn btn-primary" data-bind="click: enviarFormulario">Crear Producto</button>
+                <button type="button" class="btn btn-primary" data-bind="click: uploadImages">Create Product</button>
             </div>
         </form>
     </section>

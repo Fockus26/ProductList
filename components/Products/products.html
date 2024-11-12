@@ -1,10 +1,10 @@
 <style>
     body {background-color: hsl(246, 39%, 25%)}
 </style>
-
+<main id="products">
 <img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }">
 
-<section id="products" class="container">
+<section  class="container">
     <div data-bind="if: isDataLoaded">
         <!-- Muestro los productos si hay -->
         <div data-bind="if: allProducts().length">
@@ -23,7 +23,7 @@
                     </ul>
                 </div>
 
-                <button class="btn btn-md add text fw-bold d-flex gap-2">Add Product <i class="bi bi-plus-circle-fill"></i></button>
+                <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2">Add Product <i class="bi bi-plus-circle-fill"></i></a>
             </nav>
 
             <!-- Productos -->
@@ -114,3 +114,5 @@
         </main>
     </div>
 </section>
+
+</main>
