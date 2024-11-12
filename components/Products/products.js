@@ -14,12 +14,17 @@ export function ProductsViewModel({authToken}) {
     this.isPrevPage = ko.observable(false)
     // Banner Variables
     this.banner = {
-        src:'https://arredo.vtexassets.com/assets/vtex.file-manager-graphql/images/b26190a9-6695-45e7-b0b8-ea09245545e1___d28ce184f1a8f133681abe1d5ade5e65.png',
-        alt: 'banner'
+        src:'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
+        alt: 'churrasco banner'
     }
     // Another Variables
     this.authToken = authToken
     this.isDataLoaded = ko.observable(false)
+
+    // Cuando la url no regresa una imagen
+    this.errorImg = function(data, event) {
+        event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
+    }
 
     // Agrega estilos dependiendo de la paginacion
     this.updatePaginationStyles = function() {
@@ -43,7 +48,6 @@ export function ProductsViewModel({authToken}) {
             $activePageLink.removeClass("rounded-end-2");
         }
     };
-
 
     // Maneja la paginacion
     this.handlePagination = function(direction) {

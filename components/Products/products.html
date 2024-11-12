@@ -2,7 +2,7 @@
     body {background-color: hsl(246, 39%, 25%)}
 </style>
 
-<!-- <img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }"> -->
+<img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }">
 
 <section id="products" class="container">
     <div data-bind="if: isDataLoaded">
@@ -18,9 +18,8 @@
                     <!-- Producto -->
                     <article class="col" >
                         <div class="card border-0">
-                            <img onerror='this.onImageError = function(data, event) {
-                                event.target.src = "https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg"
-                                }' class="card-img-top" data-bind="attr: { src: pictures, alt: name }" />
+                            <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
+                       
                             <div class="card-body d-flex flex-column">
                                 <h3 class="card-title" data-bind="text: name"></h3>
                                 <p class="card-text" data-bind="text: description"></p>
