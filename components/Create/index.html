@@ -1,55 +1,65 @@
-<main class="container mt-5" id="create">
-    <section aria-labelledby="form-title">
-        <h1 id="form-title" class="mb-4">Create Product</h1>
-        <form data-bind="submit: submitForm">
+<main class="container d-flex flex-column gap-5 align-items-center justify-content-center" id="create">
+    <h1 class="form-title">Create Product</h1>
+    <form class="d-flex flex-column gap-3 p-3 rounded-2" data-bind="submit: submitForm">
 
+        <!-- Technical Info -->
+        <div class="d-flex gap-3 technical-info">
             <!-- SKU -->
-            <div class="mb-3">
-                <label for="sku" class="form-label">SKU</label>
-                <input type="text" id="sku" class="form-control" data-bind="value: sku" required>
+            <div class="form-floating sku">
+                <input id="sku" type="text" class="form-control" data-bind="value: sku" required>
+                <label for="sku" class="form-label fw-bolder">SKU</label>
             </div>
 
             <!-- Code -->
-            <div class="mb-3">
-                <label for="code" class="form-label">Code</label>
+            <div class="form-floating code">
                 <input type="number" id="code" class="form-control" data-bind="value: code" required>
+                <label for="code" class="form-label fw-bolder">Code</label>
             </div>
+        </div>
 
-            <!-- Name -->
-            <div class="mb-3">
-                <label for="name" class="form-label">Product Name</label>
-                <input type="text" id="name" class="form-control" data-bind="value: name" required>
-            </div>
+        <!-- Name -->
+        <div class="form-floating" class="name">
+            <input id="name" type="text" class="form-control" data-bind="value: name" required>
+            <label for="name" class="form-label fw-bolder">Product Name</label>
+        </div>
 
-            <!-- Description -->
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
-            </div>
+        <!-- Description -->
+        <div class="form-floating description">
+            <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
+            <label for="description" class="form-label fw-bolder">Description</label>
+        </div>
 
-            <!-- Images (Allows multiple files) -->
-            <div class="mb-3">
-                <label for="pictures" class="form-label">Product Images</label>
-                <input  multiple type="file" id="pictures" class="form-control" accept="image/*"
-           data-bind="event: { change: uploadImages }">
-            </div>
+        <!-- Images (Allows multiple files) -->
+        <div class="upload-picture">
+            <label for="upload-picture" class="form-label fw-bolder rounded-2 d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-cloud-arrow-up-fill"></i>
+                Upload Product Images
+            </label>
+            <input id="upload-picture" multiple type="file" class="form-control" accept="image/*"
+            data-bind="event: { change: uploadImages }">
+        </div>
 
+        <!-- Financial Info -->
+        <div class="d-flex gap-3 financial-info">
             <!-- Price -->
-            <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
+            <div class="price">
+                <label for="price" class="form-label fw-bolder">Price</label>
                 <input type="number" id="price" class="form-control" min="0" step="0.01" data-bind="value: price" required>
             </div>
 
             <!-- Currency -->
-            <div class="mb-3">
-                <label for="currency" class="form-label">Currency</label>
-                <input type="text" id="currency" class="form-control" data-bind="value: currency" required>
+            <div class="currency">
+                <label for="currency" class="form-label fw-bolder">Currency</label>
+                <select id="currency" class="form-select" aria-label="Default select example" data-bind="value: currency" required>
+                    <option selected>Select Currency</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
             </div>
+        </div>
 
-            <!-- Submit Button -->
-            <div class="text-center">
-                <button type="button" class="btn btn-primary" data-bind="click: uploadImages">Create Product</button>
-            </div>
-        </form>
-    </section>
+        <!-- Submit Button -->
+        <button type="button" class="btn border mt-4" data-bind="click: uploadImages">Create Product</button>
+    </form>
 </main>
