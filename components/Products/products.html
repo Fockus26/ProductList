@@ -8,29 +8,41 @@
     <div data-bind="if: isDataLoaded">
         <!-- Muestro los productos si hay -->
         <div data-bind="if: allProducts().length">
-            <main class="row gap-4">
-                <!-- Filtro -->
-                <aside class="col-2 d-flex flex-column filter">
-                    Filtros
-                </aside>
-                <!-- Productos -->
-                <section class="col-10 row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">
-                    <!-- Producto -->
-                    <article class="col" >
-                        <div class="card border-0">
-                            <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
-                       
-                            <div class="card-body d-flex flex-column">
-                                <h3 class="card-title" data-bind="text: name"></h3>
-                                <p class="card-text" data-bind="text: description"></p>
-                                <p class="card-text"><strong><span data-bind="text: price"></span></strong></p>
-                                <div class="card-btn">
-                                    <a href="#" class="btn text-white">View Details</a>
-                                </div>
+            <nav class="d-flex justify-content-between align-items-center mb-3">
+                <div class="sort">
+                    <button data-bind="click: handleShowOptions" class="btn btn-md d-flex gap-2 align-items-center p-0">
+                        <i class="bi"></i>
+                        <span>Ordenar:</span>
+                        <span data-bind="text: actualOption"></span>
+                    </button>
+
+                    <ul class="options rounded-2" data-bind="if: showOptions">
+                        <div data-bind="foreach: options">
+                            <li class="option" data-bind="text: $data"></li>
+                        </div>
+                    </ul>
+                </div>
+
+                <button class="btn btn-md add text fw-bold d-flex gap-2">Add Product <i class="bi bi-plus-circle-fill"></i></button>
+            </nav>
+
+            <!-- Productos -->
+            <main class="row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">
+                <!-- Producto -->
+                <article class="col" >
+                    <div class="card border-0">
+                        <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
+                    
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title" data-bind="text: name"></h3>
+                            <p class="card-text description" data-bind="text: description"></p>
+                            <p class="card-text price"><strong><span data-bind="text: price"></span></strong></p>
+                            <div class="card-btn">
+                                <a href="#" class="btn text-white">View Details</a>
                             </div>
                         </div>
-                    </article>
-                </section>
+                    </div>
+                </article>
             </main>
 
             <!-- Pagination -->
@@ -64,47 +76,41 @@
         </div>
     </div>
     <div data-bind="ifnot: isDataLoaded">
-        <main class="row gap-4 skeleton">
-            <aside class="col-2 d-flex flex-column filter loading-product">
-                <h3></h3>
-                <div></div>
-            </aside>
-            <section class="col-10 row row-cols-3">
-                <!-- Producto -->
-                <article class="col" >
-                    <div class="card border-0 loading-product">
-                        <span class="card-img-top"></span>
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="card-title"></h3>
-                            <p class="card-text description"></p>
-                            <p class="card-text price"><strong><span></span></strong></p>
-                            <a href="#" class="btn text-white"></a>
-                        </div>
+        <main class="skeleton row row-cols-3">
+            <!-- Producto -->
+            <article class="col" >
+                <div class="card border-0 loading-product">
+                    <span class="card-img-top"></span>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title"></h3>
+                        <p class="card-text description"></p>
+                        <p class="card-text price"><strong><span></span></strong></p>
+                        <a href="#" class="btn text-white"></a>
                     </div>
-                </article>
-                <article class="col" >
-                    <div class="card border-0 loading-product">
-                        <span class="card-img-top"></span>
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="card-title"></h3>
-                            <p class="card-text description"></p>
-                            <p class="card-text price"><strong><span></span></strong></p>
-                            <a href="#" class="btn text-white"></a>
-                        </div>
+                </div>
+            </article>
+            <article class="col" >
+                <div class="card border-0 loading-product">
+                    <span class="card-img-top"></span>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title"></h3>
+                        <p class="card-text description"></p>
+                        <p class="card-text price"><strong><span></span></strong></p>
+                        <a href="#" class="btn text-white"></a>
                     </div>
-                </article>
-                <article class="col" >
-                    <div class="card border-0 loading-product">
-                        <span class="card-img-top"></span>
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="card-title"></h3>
-                            <p class="card-text description"></p>
-                            <p class="card-text price"><strong><span></span></strong></p>
-                            <a href="#" class="btn text-white"></a>
-                        </div>
+                </div>
+            </article>
+            <article class="col" >
+                <div class="card border-0 loading-product">
+                    <span class="card-img-top"></span>
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title"></h3>
+                        <p class="card-text description"></p>
+                        <p class="card-text price"><strong><span></span></strong></p>
+                        <a href="#" class="btn text-white"></a>
                     </div>
-                </article>
-            </section>
+                </div>
+            </article>
         </main>
     </div>
 </section>
