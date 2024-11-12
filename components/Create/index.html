@@ -1,5 +1,5 @@
 <main class="container d-flex flex-column gap-5 align-items-center justify-content-center" id="create">
-    <h1 class="form-title">Create Product</h1>
+    <h1 class="form-title">Add Product</h1>
     <form class="d-flex flex-column gap-3 p-3 rounded-2" data-bind="submit: submitForm">
 
         <!-- Technical Info -->
@@ -8,35 +8,43 @@
             <div class="form-floating sku">
                 <input id="sku" type="text" class="form-control" data-bind="value: sku" required>
                 <label for="sku" class="form-label fw-bolder">SKU</label>
+                <!-- Show error if skuError() has a value -->
+                <span data-bind="text: skuError(), visible: skuError()"></span>
             </div>
 
             <!-- Code -->
             <div class="form-floating code">
                 <input type="number" id="code" class="form-control" data-bind="value: code" required>
                 <label for="code" class="form-label fw-bolder">Code</label>
+                <!-- Show error if codeError() has a value -->
+                <span data-bind="text: codeError(), visible: codeError()"></span>
             </div>
         </div>
 
         <!-- Name -->
-        <div class="form-floating" class="name">
+        <div class="form-floating name">
             <input id="name" type="text" class="form-control" data-bind="value: name" required>
             <label for="name" class="form-label fw-bolder">Product Name</label>
+            <!-- Show error if nameError() has a value -->
+            <span data-bind="text: nameError(), visible: nameError()"></span>
         </div>
 
         <!-- Description -->
         <div class="form-floating description">
             <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
             <label for="description" class="form-label fw-bolder">Description</label>
+            <!-- Show error if descriptionError() has a value -->
+            <span data-bind="text: descriptionError(), visible: descriptionError()"></span>
         </div>
 
-        <!-- Images (Allows multiple files) -->
+        <!-- Images -->
         <div class="upload-picture">
             <label for="upload-picture" class="form-label fw-bolder rounded-2 d-flex align-items-center justify-content-center gap-2">
-                <i class="bi bi-cloud-arrow-up-fill"></i>
-                Upload Product Images
+                <i class="bi bi-cloud-arrow-up-fill"></i> Upload Product Images
             </label>
-            <input id="upload-picture" multiple type="file" class="form-control" accept="image/*"
-            data-bind="event: { change: uploadImages }">
+            <input id="upload-picture" multiple type="file" class="form-control" accept="image/*" data-bind="event: { change: uploadImages }">
+            <!-- Show error if imagesError() has a value -->
+            <span data-bind="text: imagesError(), visible: imagesError()"></span>
         </div>
 
         <!-- Financial Info -->
@@ -45,21 +53,26 @@
             <div class="price">
                 <label for="price" class="form-label fw-bolder">Price</label>
                 <input type="number" id="price" class="form-control" min="0" step="0.01" data-bind="value: price" required>
+                <!-- Show error if priceError() has a value -->
+                <span data-bind="text: priceError(), visible: priceError()"></span>
             </div>
 
             <!-- Currency -->
             <div class="currency">
                 <label for="currency" class="form-label fw-bolder">Currency</label>
-                <select id="currency" class="form-select" aria-label="Default select example" data-bind="value: currency" required>
-                    <option selected>Select Currency</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select id="currency" class="form-select" data-bind="value: currency" required>
+                    <option selected disabled>Select Currency</option>
+                    <option value="ARS">ARS</option>
+                    <option value="USD">USD</option>
+                    <option value="s./">s./</option>
                 </select>
+                <!-- Show error if currencyError() has a value -->
+                <span data-bind="text: currencyError(), visible: currencyError()"></span>
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <button type="button" class="btn border mt-4" data-bind="click: uploadImages">Create Product</button>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-dark fw-bold w-50" data-bind="click: submitForm ">Submit</button>
+        </div>
     </form>
 </main>

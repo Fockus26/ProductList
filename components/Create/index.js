@@ -1,4 +1,4 @@
-export function CreateViewModel({authToken}) {
+export function CreateViewModel({ authToken }) {
     var self = this;
 
     // Product data
@@ -8,48 +8,117 @@ export function CreateViewModel({authToken}) {
     self.description = ko.observable('');
     self.price = ko.observable('');
     self.currency = ko.observable('');
-    self.images = ko.observableArray([]); // Selected images (not uploaded yet)
+    self.images = ko.observableArray([]); // Selected images
+    self.token = authToken;
+    self.cloudName = "drspvzzg8";
+    self.uploadPreset = "ml_default";
 
-    self.cloudName = "drspvzzg8"
-    self.uploadPreset = "ml_default"
+    // Error messages for each field
+    self.skuError = ko.observable('');
+    self.codeError = ko.observable('');
+    self.nameError = ko.observable('');
+    self.descriptionError = ko.observable('');
+    self.priceError = ko.observable('');
+    self.currencyError = ko.observable('');
+    self.imagesError = ko.observable('');
+
+    // Helper to clear errors when a field is updated
+    function clearError(field) {
+        if (field) {
+            field('');  // Clear specific field error
+        }
+    }
+
+    // Observables to clear errors when input values change
+    self.sku.subscribe(() => clearError(self.skuError));
+    self.code.subscribe(() => clearError(self.codeError));
+    self.name.subscribe(() => clearError(self.nameError));
+    self.description.subscribe(() => clearError(self.descriptionError));
+    self.price.subscribe(() => clearError(self.priceError));
+    self.currency.subscribe(() => clearError(self.currencyError));
+    self.images.subscribe(() => clearError(self.imagesError)); // Clear image error when images change
+
     // Method to store the selected images
-    self.uploadImages = function (_,event) {
-        console.log("hola?")
+    self.uploadImages = function (_, event) {
         var files = event.target.files;
         var fileArray = Array.from(files);
         self.images(fileArray); // Save the selected images
-        console.log("IMAGES", self.images())
+        if (fileArray.length === 0) {
+            self.imagesError('Please select at least one image.');
+        } else {
+            self.imagesError(''); // Clear error if images are selected
+        }
+    };
+
+    // Method to validate the form
+    self.validateForm = function() {
+        let isValid = true;
+
+        if (!self.sku()) {
+            self.skuError('SKU is required.');
+            isValid = false;
+        }
+        if (!self.code()) {
+            self.codeError('Code is required.');
+            isValid = false;
+        }
+        if (!self.name()) {
+            self.nameError('Product name is required.');
+            isValid = false;
+        }
+        if (!self.description()) {
+            self.descriptionError('Description is required.');
+            isValid = false;
+        }
+        if (!self.price()) {
+            self.priceError('Price is required.');
+            isValid = false;
+        }
+        if (!self.currency()) {
+            self.currencyError('Currency is required.');
+            isValid = false;
+        }
+        if (!self.images().length) {
+            self.imagesError('Please upload at least one image.');
+            isValid = false;
+        }
+
+        return isValid;
     };
 
     // Method to submit the form
-    self.submitForm = function () {
+    self.submitForm = function() {
+        console.log("HOLA")
+        if (!self.validateForm()) return; // Stop if validation fails
+
         var formData = {
-            sku: self.sku(),
+            SKU: self.sku(),
             code: self.code(),
             name: self.name(),
+            currency: self.currency(),
             description: self.description(),
             price: self.price(),
-            currency: self.currency(),
-            images: [] // We will store the URLs here
+            pictures: [], // We will store the URLs here
+            __v: 0
         };
 
         // Upload images to Cloudinary and get the URLs
-        var uploadPromises = self.images().map(function (file) {
-            return new Promise(function (resolve, reject) {
-                var formData = new FormData();
-                formData.append('file', file);
-                formData.append('upload_preset', uploadPreset ); // Your Cloudinary preset here
+        const uploadPromises = self.images().map(function(file) {
+            return new Promise(function(resolve, reject) {
+                var uploadData = new FormData();
+                uploadData.append('file', file);
+                uploadData.append('upload_preset', self.uploadPreset);
 
                 $.ajax({
-                    url: `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, // Cloudinary API URL
+                    url: `https://api.cloudinary.com/v1_1/${self.cloudName}/image/upload`,
                     type: 'POST',
-                    data: formData,
+                    data: uploadData,
                     processData: false,
                     contentType: false,
-                    success: function (response) {
+                    success: function(response) {
                         resolve(response.secure_url);
                     },
-                    error: function (error) {
+                    error: function(error) {
                         reject(error);
                     }
                 });
@@ -57,24 +126,26 @@ export function CreateViewModel({authToken}) {
         });
 
         // Wait for all images to be uploaded before submitting the form
-        Promise.all(uploadPromises).then(function (imageUrls) {
-            formData.images = imageUrls; // Assign the uploaded image URLs to the object
-
+        Promise.all(uploadPromises).then(function(imageUrls) {
+            formData.images = imageUrls; // Assign the uploaded image URLs to the form data
+            console.log("URL",imageUrls)
+            console.log("TOKEN",self.token)
             // Send the product information along with the image URLs
             $.ajax({
-                url: '/api/products', // Endpoint where the product should be created
+                url: 'http://vps.churrasco.digital:3000/addproduct',
                 type: 'POST',
                 contentType: 'application/json',
+                headers: { 'Authorization': 'Bearer ' + self.token },
                 data: JSON.stringify(formData),
-                success: function () {
-                    // Success handling (e.g., navigate to a new page, display success message, etc.)
+                success: function(res) {
+                    console.log("Product added successfully", res);
                 },
-                error: function () {
-                    // Error handling (e.g., display error message)
+                error: function() {
+                    console.log("Error adding product");
                 }
             });
-        }).catch(function () {
-            // Error handling for image upload failure
+        }).catch(function() {
+            console.log("Error uploading images");
         });
     };
 }
