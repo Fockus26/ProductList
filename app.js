@@ -3,7 +3,6 @@ import ProductsTemplate from "./components/Products/products.html"
 import CreateTemplate from "./components/Create/index.html"
 import { LoginViewModel } from "./components/Login/login.js";
 import { ProductsViewModel } from "./components/Products/products.js";
-import 
 import "./styles.css"
 import { CreateViewModel } from "./components/Create/index.js";
 

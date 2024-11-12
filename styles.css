@@ -98,7 +98,7 @@
     .banner {
         object-fit: cover;
         width: 100%;
-        max-height: 200px;
+        max-height: 225px;
     }
 
     #products h2 {
@@ -109,11 +109,78 @@
         gap: 60px 0px;
     }
 
-    /* Filter */
-    #products .filter {
-        background-color: hsl(246, 39%, 7.5%);
-        border-radius: 10px;
-        color: hsl(246, 39%, 92.5%);
+    /* Sorting */
+    nav .sort  {
+        height: 100%;
+        position: relative;
+    }
+
+    nav .sort button {
+        color: hsl(246, 39%, 95%);
+    }
+
+    nav .sort button:hover {
+        color: hsl(246, 39%, 100%);
+    }
+
+    nav .sort button:focus {
+        color: hsl(246, 39%, 100%) !important;
+        border-color: transparent !important;
+    }
+
+    nav .sort button i {
+        font-size: 28px;
+    }
+
+    nav .sort .options {
+        list-style: none;
+        margin: 0;
+        padding: 0px;
+        background-color: hsl(248, 38%, 95%);
+        overflow: hidden;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+
+    nav .sort .options .option {
+        padding: 7.5px;
+        cursor: pointer;
+        transition: .5s ease;
+        color: hsl(246, 39%, 25%);
+    }
+
+    nav .sort .options .option:hover {
+        background-color: hsl(248, 38%, 100%);
+    }
+
+    nav .sort .options .option.selected {
+        background-color: hsl(246, 39%, 45%);
+    }
+
+    /* Add New Product */
+    nav .add {
+        background-color: hsl(246, 39%, 95%);
+        color: hsl(246, 39%, 25%);
+    }
+
+    nav .add:hover {
+        background-color: hsl(246, 39%, 97.5%);
+        color: hsl(246, 39%, 27.5%);
+    }
+
+    nav .add i {
+        color: hsl(246, 39%, 25%);
+    }
+
+    nav .add:hover i {
+        color: hsl(246, 39%, 27.5%);
+    }
+
+    nav .add:focus {
+        background-color: hsl(246, 39%, 97.5%) !important;
+        border-color: hsl(246, 39%, 97.5%) !important;
+        color: hsl(246, 39%, 27.5%) !important;
     }
 
     /* Card Product */
@@ -139,12 +206,20 @@
     }
 
     #products .card-body .card-title {
-        font-size: 1.85vw;
+        font-size: 1.75vw;
         color: hsl(246, 39%, 15%);
+        min-height: 60px;
     }
 
     #products .card-body .card-text {
+        text-overflow: ellipsis;
+        line-clamp: 2;
+        min-height: 50px;
         color: hsl(246, 39%, 25%);
+    }
+
+    #products .card-body .card-text.price {
+        min-height: 30px;
     }
 
     #products .card-body .card-btn {
@@ -170,24 +245,6 @@
         background-color: hsl(246, 39%, 40%);
         animation: pulse 1.5s infinite;
         height: 350px !important;
-    }
-
-    .loading-product.filter {
-        padding: 20px;
-        height: 80% !important;
-    }
-
-    .loading-product.filter h3 {
-        background-color: hsl(246, 39%, 35%) !important;
-        height: 20px;
-        width: 100%;
-    }
-
-    .loading-product.filter div {
-        background-color: hsl(246, 39%, 35%) !important;
-        margin-top: 20px;
-        height: 100%;
-        width: 100%;
     }
 
     .loading-product .card-body {
