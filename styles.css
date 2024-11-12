@@ -1,9 +1,10 @@
-/* Container General */
-.container {
-    height: 100vh;
-    padding-top: 75px;
-    padding-bottom: 50px;
-}
+/* Estilos Generales */
+    /* Container General */
+    .container {
+        height: 100vh;
+        padding-top: 75px;
+        padding-bottom: 50px;
+    }
 
 /* Login Component */
 
@@ -93,38 +94,143 @@
     }
 
 /* Products Component */
+    /* Banner */
+    .banner {
+        object-fit: cover;
+        width: 100%;
+        max-height: 200px;
+    }
 
-#products h2 {
-    color: hsl(246, 39%, 15%)
-}
+    #products h2 {
+        color: hsl(246, 39%, 95%)
+    }
 
-#products .row {
-    gap: 60px 0px;
-}
+    #products .row {
+        gap: 60px 0px;
+    }
 
-/* Crad Product */
-#products .card {
-    height: 100%;
-}
+    /* Filter */
+    #products .filter {
+        background-color: hsl(246, 39%, 7.5%);
+        border-radius: 10px;
+        color: hsl(246, 39%, 92.5%);
+    }
 
-#products .card-img-top {
-    object-fit: cover;
-    width: auto;
-    height: 250px;
-}
+    /* Card Product */
+    #products .card {
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: .5s ease;
+    }
 
-#products .card-body h3 {
-    color: hsl(246, 39%, 30%);
-}
+    #products .card:hover {
+        transform: scale(1.025);
+    }
 
-#products .card-body div {
-    height: 100%;
-    display: flex;
-}
+    #products .card-img-top {
+        object-fit: cover;
+        width: auto;
+        height: 250px;
+    }
 
-#products .card-body .btn {
-    background-color: hsl(246, 39%, 30%);
-}
+    #products .card-body {
+        background-color: hsl(246, 39%, 92.5%);
+    }
+
+    #products .card-body .card-title {
+        font-size: 1.85vw;
+        color: hsl(246, 39%, 15%);
+    }
+
+    #products .card-body .card-text {
+        color: hsl(246, 39%, 25%);
+    }
+
+    #products .card-body .card-btn {
+        height: 100%;
+        display: flex;
+    }
+
+    #products .card-body .card-btn .btn {
+        align-self: flex-end;
+        background-color: hsl(246, 39%, 35%);
+    }
+
+    #products .card-body .card-btn .btn:hover {
+        background-color: hsl(246, 39%, 40%);
+    }
+
+    /* Loading Product */
+    main.skeleton {
+        height: 100vh;
+    }
+
+    .loading-product {
+        background-color: hsl(246, 39%, 40%);
+        animation: pulse 1.5s infinite;
+        height: 350px !important;
+    }
+
+    .loading-product.filter {
+        padding: 20px;
+        height: 80% !important;
+    }
+
+    .loading-product.filter h3 {
+        background-color: hsl(246, 39%, 35%) !important;
+        height: 20px;
+        width: 100%;
+    }
+
+    .loading-product.filter div {
+        background-color: hsl(246, 39%, 35%) !important;
+        margin-top: 20px;
+        height: 100%;
+        width: 100%;
+    }
+
+    .loading-product .card-body {
+        background-color: transparent !important;
+    }
+
+    .loading-product .card-img-top {
+        background-color: hsl(246, 39%, 35%);
+        margin: 20px;
+    }
+    
+    .loading-product .card-title {
+        background-color: hsl(246, 39%, 35%);
+        width: 75%;
+        height: 15px;
+        margin-bottom: 30px;
+    }
+
+    .loading-product .card-text {
+        background-color: hsl(246, 39%, 35%);
+        height: 7.5px;
+    }
+
+    .loading-product .card-text.description{
+        width: 25%;
+
+    }
+    .loading-product .card-text.price {
+        width: 50%;
+    }
+
+    .loading-product .btn {
+        background-color: hsl(246, 39%, 35%);
+        height: 25px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    @keyframes pulse {
+        0% { background-color: hsl(246, 39%, 40%); }
+        50% { background-color: hsl(246, 39%, 45%); }
+        100% { background-color: hsl(246, 39%, 40%); }
+    }
 
     /* Pagination Product */
     #products .pagination .page-item {
@@ -132,12 +238,11 @@
     }
     #products .pagination .page-item .page-link:focus {
         box-shadow: none !important;
-        background-color: hsl(246, 39%, 90%);
     }
 
     #products .pagination .page-item .page-link {
-        color: hsl(246, 39%, 30%) !important;
-        border-color: hsl(246, 39%, 30%) !important;
+        color: hsl(246, 39%, 92.5%) !important;
+        border-color: hsl(246, 39%, 92.5%) !important;
         background-color: transparent !important;
         height: 40px !important;
     }
@@ -148,15 +253,10 @@
         border-right: none !important;
     }
 
+    #products .pagination .page-item.active .page-link,
     #products .pagination .page-item .page-link:hover {
-        color: hsl(246, 38%, 95%) !important;
-        border-color: hsl(246, 39%, 40%) !important;
-        background-color: hsl(246, 39%, 40%) !important;
-    }
-
-    #products .pagination .page-item.active .page-link {
-        color: hsl(246, 38%, 95%)!important;
-        border-color: hsl(246, 39%, 30%) !important;
-        background-color: hsl(246, 39%, 30%) !important;
+        color: hsl(246, 38%, 25%)!important;
+        border-color: hsl(246, 39%, 92.5%) !important;
+        background-color: hsl(246, 39%, 92.5%) !important;
     }
 
