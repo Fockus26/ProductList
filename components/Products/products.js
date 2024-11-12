@@ -12,40 +12,6 @@ export function ProductsViewModel({authToken, context}) {
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
     }
 
-    // Sort
-        // Sort Variables
-        this.showOptions = ko.observable(false)
-        this.options = ko.observableArray(["Por Titulo", "Por Moneda"])
-        this.actualOption = ko.observable(this.options()[0])
-        // Cambia el estilo del icono
-        this.swapFilterIcon = function() {
-            const $filterIcon = $(".sort button i");
-
-            if (!this.showOptions()) {
-                $filterIcon?.removeClass("bi-filter");
-                $filterIcon?.addClass("bi-filter-left");
-            } else {
-                $filterIcon?.addClass("bi-filter");
-                $filterIcon?.removeClass("bi-filter-left");
-            }
-        };
-        // Maneja las opciones
-        this.handleShowOptions = function() {
-            this.showOptions(!this.showOptions())
-            this.swapFilterIcon()
-        }
-        // this.styleSelectedOption = function() {
-        //      $(".sort .options .option").filter(function() {
-        //         return $(this).val() === this.actualOption();
-        //     })
-         
-        // }
-        this.appContext = context
-        this.goToCreate = function(data,event) {
-            event.preventDefault()
-            return this.appContext.redirect("#/create")
-        }
-
     // Pagination
         // Pagination Variables
         this.productsPerPage = 15
@@ -96,6 +62,73 @@ export function ProductsViewModel({authToken, context}) {
             this.updatePaginationStyles();
         }
 
+    // Sort
+        // Sort Variables
+        this.showOptions = ko.observable(false)
+        this.options = ko.observableArray(
+            [
+                {type: "alphabetic", title: "Por Titulo", value: null}, 
+                {type: "numeric", title: "Por Precio", value: null}
+            ]
+        )
+        this.actualOption = ko.observable(this.options()[0].title)
+        this.currencies = ko.observableArray([])
+        this.showCurrencies = ko.observable(false)
+        // Cambia el estilo del icono
+        this.swapFilterIcon = function() {
+            const $filterIcon = $(".sort button i");
+
+            if (!this.showOptions()) {
+                $filterIcon?.removeClass("bi-filter");
+                $filterIcon?.addClass("bi-filter-left");
+            } else {
+                $filterIcon?.addClass("bi-filter");
+                $filterIcon?.removeClass("bi-filter-left");
+            }
+        };
+        this.swapSortIcon = function(title, value) {
+            let option = this.options().filter((option) => option.title === title)[0]
+
+            const $sortIcon = $(`.sort .options .option i[aria-label=${option.type}]`);
+
+            let direction = value === 'asc' ? 'up' : 'down'
+            let latestDirection = value === 'asc' ? 'down' : 'up'
+
+            $sortIcon?.removeClass(`bi-sort-${latestDirection}`);
+            $sortIcon?.addClass(`bi-sort-${direction}`);
+        }
+        // Maneja las opciones
+        this.handleShowOptions = function() {
+            this.showOptions(!this.showOptions())
+            this.swapFilterIcon()
+        }
+        this.selectOption = function(title) {
+            let option = this.options().filter((option) => option.title === title)[0]
+            option.value = option.value || 'desc'
+            option.value === 'asc' ? option.value = 'desc' : option.value = 'asc'
+
+            this.groupProducts(option.type, option.value)
+            this.actualOption(title)
+            this.styleSelectedOption()
+            this.swapSortIcon(title, option.value)
+        }
+        const productViewModel = this
+        this.styleSelectedOption = function() {
+            // Remueve la clase al anterior elemento
+            $(".sort .options .option.selected").removeClass('selected');
+            // Obtiene la opcion que estamos buscando
+            const $selectedOption = $(".sort .options .option").filter(function() {
+                return $(this).text() === productViewModel.actualOption()
+            })
+            // Agregamos la clase a esta opcion
+            $selectedOption?.addClass('selected')
+        }
+        this.appContext = context
+        this.goToCreate = function(data,event) {
+            event.preventDefault()
+            return this.appContext.redirect("#/create")
+        }
+
     // Data
         // Product Variables
         this.allProducts = ko.observableArray([])
@@ -103,6 +136,35 @@ export function ProductsViewModel({authToken, context}) {
         // Data Variables
         this.authToken = authToken
         this.isDataLoaded = ko.observable(false)
+        // Usamos Array.from para crear los lotes de productos
+        this.groupProducts = function(type=null, value=null) {
+            let products = this.allProducts();
+
+            [type, value] = [type || 'alphabetic', value || 'asc']
+
+            if (type === 'alphabetic') {
+                if (value === 'asc') {
+                    products = products.sort((a, b) => a.name.localeCompare(b.name)); // Orden ascendente
+                } else if (value === 'desc') {
+                    products = products.sort((a, b) => b.name.localeCompare(a.name)); // Orden descendente
+                }
+            } else if (type === 'numeric') {
+                if (value === 'asc') {
+                    products = products.sort((a, b) => a.price - b.price); // Orden ascendente
+                } else if (value === 'desc') {  
+                    products = products.sort((a, b) => b.price - a.price); // Orden descendente
+                }
+
+                console.log(products)
+            }
+        
+            // Después de ordenar, creamos los lotes de productos
+            this.batchProducts(
+                Array.from({ length: this.totalPages() }, (_, index) => {
+                    return products.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
+                })
+            );
+        }
         this.getData = function(token) {
         
             $.ajax({
@@ -112,20 +174,17 @@ export function ProductsViewModel({authToken, context}) {
                 headers: {'Authorization': 'Bearer ' + token},
                 success: (response) => {
                     if (response) {
-                        const productsMap = response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures }))
                         // Obtengo todos los productos
-                        this.allProducts(productsMap)
+                        this.allProducts(response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures })))
                         // Obtengo el total de paginas segun los productos que deben haber por pagina
                         this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage) - 1)
-                        
-                        // Usamos Array.from para crear los lotes de productos
-                        const batches = Array.from({ length: this.totalPages() }, (_, index) => {
-                            return productsMap.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
-                        });
-                        
-                        // Establecemos el valor de batchProducts con los lotes generados
-                        this.batchProducts(batches);
-                    
+                        // Obtenemos lotes de productos segun la cantidad maxima que debe haber en una pagina
+                        this.groupProducts()
+
+                        // Obtener todas las currencies de los productos
+                        const allCurrencies = this.allProducts().map(product => product.currency);
+                        // Eliminar duplicados usando un Set
+                        this.currencies([...new Set(allCurrencies)]);
                     } 
                 },
                 error: ({error}) => {
@@ -135,7 +194,7 @@ export function ProductsViewModel({authToken, context}) {
                 complete: () => {
                     this.isDataLoaded(true)
                     this.updatePaginationStyles();       
-                    this.swapFilterIcon();       
+                    this.swapFilterIcon();      
                     // this.styleSelectedOption(); 
                 },
             });
