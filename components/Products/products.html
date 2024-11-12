@@ -18,13 +18,11 @@
 
                     <ul class="options rounded-2" data-bind="if: showOptions">
                         <div data-bind="foreach: options">
-                            <div data-bind="click: () => $parent.selectOption($data.type, $data.title, $data.value)" class="option d-flex align-items-center justify-content-between">
+                            <div data-bind="click: () => $parent.selectOption($data.title)" class="option d-flex align-items-center justify-content-between">
                                 <li data-bind="text: $data.title">
                                 </li>
 
-                                <div data-bind="if: $data.type === 'alphabetic'">
-                                    <i class="bi"> </i>
-                                </div>
+                                <i data-bind="attr: { 'aria-label': $data.type }" class="bi"> </i>
                             </div>
                         </div>
                     </ul>
@@ -55,7 +53,7 @@
                         <div class="card-body d-flex flex-column">
                             <h3 class="card-title" data-bind="text: name"></h3>
                             <p class="card-text description" data-bind="text: description"></p>
-                            <p class="card-text price"><strong><span data-bind="text: price"></span></strong></p>
+                            <p class="card-text price"><strong><span data-bind="text: pricing"></span></strong></p>
                             <div class="card-btn">
                                 <a href="#" class="btn text-white">View Details</a>
                             </div>

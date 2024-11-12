@@ -12,85 +12,6 @@ export function ProductsViewModel({authToken, context}) {
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
     }
 
-    // Sort
-        // Sort Variables
-        this.showOptions = ko.observable(false)
-        this.options = ko.observableArray(
-            [
-                {type: "alphabetic", title: "Por Titulo", value: null}, 
-                {type: "selection", title: "Por Moneda", value: null}
-            ]
-        )
-        this.actualOption = ko.observable(this.options()[0].title)
-        this.currencies = ko.observableArray([])
-        this.showCurrencies = ko.observable(false)
-        // Cambia el estilo del icono
-        this.swapFilterIcon = function() {
-            const $filterIcon = $(".sort button i");
-
-            if (!this.showOptions()) {
-                $filterIcon?.removeClass("bi-filter");
-                $filterIcon?.addClass("bi-filter-left");
-            } else {
-                $filterIcon?.addClass("bi-filter");
-                $filterIcon?.removeClass("bi-filter-left");
-            }
-        };
-        this.swapSortIcon = function() {
-            const $sortIcon = $(".sort .options .option i");
-
-            if (this.options()[0].value === 'asc') {
-                $sortIcon?.removeClass("bi-sort-up");
-                $sortIcon?.addClass("bi-sort-down");
-            } else if (this.options()[0].value === 'desc') {
-                $sortIcon?.addClass("bi-sort-up");
-                $sortIcon?.removeClass("bi-sort-down");
-            } else {
-                $sortIcon?.addClass("bi-sort-up");
-            }
-        }
-        // Maneja las opciones
-        this.handleShowOptions = function() {
-            this.showOptions(!this.showOptions())
-            this.swapFilterIcon()
-        }
-        this.selectOption = function(type, title, value) {
-            this.actualOption(title)
-            this.styleSelectedOption()
-
-            if (type === 'alphabetic') {
-                this.swapSortIcon()
-                if (value === 'asc') {
-                    this.options()[0].value = 'desc'
-                    this.groupProducts('desc')   
-                } else if (value === 'desc') {
-                    this.options()[0].value = 'asc'
-                    this.groupProducts('asc')   
-                } else {
-                    this.options()[0].value = 'asc'
-                    this.groupProducts('asc')
-                }
-            } else if (type === 'selection') {
-                this.showCurrencies(!this.showCurrencies())
-            }
-        }
-        const productViewModel = this
-        this.styleSelectedOption = function() {
-            // Remueve la clase al anterior elemento
-            $(".sort .options .option.selected").removeClass('selected');
-            // Obtiene la opcion que estamos buscando
-            const $selectedOption = $(".sort .options .option").filter(function() {
-                return $(this).text() === productViewModel.actualOption()
-            })
-            // Agregamos la clase a esta opcion
-            $selectedOption?.addClass('selected')
-        }
-        this.appContext = context
-        this.goToCreate = function(data,event) {
-            event.preventDefault()
-            return this.appContext.redirect("#/create")
-        }
-
     // Pagination
         // Pagination Variables
         this.productsPerPage = 15
@@ -141,6 +62,73 @@ export function ProductsViewModel({authToken, context}) {
             this.updatePaginationStyles();
         }
 
+    // Sort
+        // Sort Variables
+        this.showOptions = ko.observable(false)
+        this.options = ko.observableArray(
+            [
+                {type: "alphabetic", title: "Por Titulo", value: null}, 
+                {type: "numeric", title: "Por Precio", value: null}
+            ]
+        )
+        this.actualOption = ko.observable(this.options()[0].title)
+        this.currencies = ko.observableArray([])
+        this.showCurrencies = ko.observable(false)
+        // Cambia el estilo del icono
+        this.swapFilterIcon = function() {
+            const $filterIcon = $(".sort button i");
+
+            if (!this.showOptions()) {
+                $filterIcon?.removeClass("bi-filter");
+                $filterIcon?.addClass("bi-filter-left");
+            } else {
+                $filterIcon?.addClass("bi-filter");
+                $filterIcon?.removeClass("bi-filter-left");
+            }
+        };
+        this.swapSortIcon = function(title, value) {
+            let option = this.options().filter((option) => option.title === title)[0]
+
+            const $sortIcon = $(`.sort .options .option i[aria-label=${option.type}]`);
+
+            let direction = value === 'asc' ? 'up' : 'down'
+            let latestDirection = value === 'asc' ? 'down' : 'up'
+
+            $sortIcon?.removeClass(`bi-sort-${latestDirection}`);
+            $sortIcon?.addClass(`bi-sort-${direction}`);
+        }
+        // Maneja las opciones
+        this.handleShowOptions = function() {
+            this.showOptions(!this.showOptions())
+            this.swapFilterIcon()
+        }
+        this.selectOption = function(title) {
+            let option = this.options().filter((option) => option.title === title)[0]
+            option.value = option.value || 'desc'
+            option.value === 'asc' ? option.value = 'desc' : option.value = 'asc'
+
+            this.groupProducts(option.type, option.value)
+            this.actualOption(title)
+            this.styleSelectedOption()
+            this.swapSortIcon(title, option.value)
+        }
+        const productViewModel = this
+        this.styleSelectedOption = function() {
+            // Remueve la clase al anterior elemento
+            $(".sort .options .option.selected").removeClass('selected');
+            // Obtiene la opcion que estamos buscando
+            const $selectedOption = $(".sort .options .option").filter(function() {
+                return $(this).text() === productViewModel.actualOption()
+            })
+            // Agregamos la clase a esta opcion
+            $selectedOption?.addClass('selected')
+        }
+        this.appContext = context
+        this.goToCreate = function(data,event) {
+            event.preventDefault()
+            return this.appContext.redirect("#/create")
+        }
+
     // Data
         // Product Variables
         this.allProducts = ko.observableArray([])
@@ -149,14 +137,25 @@ export function ProductsViewModel({authToken, context}) {
         this.authToken = authToken
         this.isDataLoaded = ko.observable(false)
         // Usamos Array.from para crear los lotes de productos
-        this.groupProducts = function(order=null) {
+        this.groupProducts = function(type=null, value=null) {
             let products = this.allProducts();
 
-            // Si se pasa un orden, ordena los productos
-            if (order === 'asc') {
-                products = products.sort((a, b) => a.name.localeCompare(b.name)); // Orden ascendente
-            } else if (order === 'desc') {
-                products = products.sort((a, b) => b.name.localeCompare(a.name)); // Orden descendente
+            [type, value] = [type || 'alphabetic', value || 'asc']
+
+            if (type === 'alphabetic') {
+                if (value === 'asc') {
+                    products = products.sort((a, b) => a.name.localeCompare(b.name)); // Orden ascendente
+                } else if (value === 'desc') {
+                    products = products.sort((a, b) => b.name.localeCompare(a.name)); // Orden descendente
+                }
+            } else if (type === 'numeric') {
+                if (value === 'asc') {
+                    products = products.sort((a, b) => a.price - b.price); // Orden ascendente
+                } else if (value === 'desc') {  
+                    products = products.sort((a, b) => b.price - a.price); // Orden descendente
+                }
+
+                console.log(products)
             }
         
             // Después de ordenar, creamos los lotes de productos
