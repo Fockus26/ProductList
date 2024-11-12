@@ -18,13 +18,32 @@
 
                     <ul class="options rounded-2" data-bind="if: showOptions">
                         <div data-bind="foreach: options">
-                            <li class="option" data-bind="text: $data"></li>
+                            <div data-bind="click: () => $parent.selectOption($data.type, $data.title, $data.value)" class="option d-flex align-items-center justify-content-between">
+                                <li data-bind="text: $data.title">
+                                </li>
+
+                                <div data-bind="if: $data.type === 'alphabetic'">
+                                    <i class="bi"> </i>
+                                </div>
+                            </div>
                         </div>
                     </ul>
                 </div>
 
                 <button class="btn btn-md add text fw-bold d-flex gap-2">Add Product <i class="bi bi-plus-circle-fill"></i></button>
             </nav>
+
+            <div data-bind="if: showCurrencies">
+                <section class="panel-currencies">
+                    <h4 class="text-center">Select your currency</h4>
+                    <ul data-bind="foreach: currencies">
+                        <div>
+                            <button role="checkbox"></button>
+                            <li data-bind="text: $data"></li>
+                        </div>
+                    </ul>
+                </section>
+            </div>
 
             <!-- Productos -->
             <main class="row row-cols-3" data-bind="foreach: batchProducts()[actualPage()]">

@@ -140,7 +140,7 @@
         overflow: hidden;
         position: absolute;
         z-index: 10;
-        width: 100%;
+        width: 200px;
     }
 
     nav .sort .options .option {
@@ -151,12 +151,98 @@
     }
 
     nav .sort .options .option:hover {
-        background-color: hsl(248, 38%, 100%);
+        background-color: hsl(248, 38%, 90%);
     }
 
     nav .sort .options .option.selected {
-        background-color: hsl(246, 39%, 45%);
+        color: hsl(248, 38%, 95%);
+        background-color: hsl(246, 39%, 35%);
     }
+
+    nav .sort .options .option.selected:hover {
+        background-color: hsl(246, 39%, 40%);
+    }
+
+    /* Sort Currencies */
+    .panel-currencies {
+        background-color: hsl(246, 39%, 95%);
+        position: absolute;
+        height: 650px;
+        width: 650px;
+        top: 30%;
+        left: calc(50% - 325px);
+        z-index: 20;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .panel-currencies ul {
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        align-items: center;
+        gap: 10px;
+        list-style: none;
+    }
+
+    .panel-currencies ul div {
+        display: flex;
+        align-items: center;
+        gap: 0px 5px;
+    }
+
+    .panel-currencies ul button {
+        height: 15px;
+        width: fit-content;
+    }
+
+    .panel-currencies button {
+        margin: 0px;
+        appearance: none; 
+        width: 20px;
+        height: 20px;
+        border: 2px solid hsl(246, 38%, 25%);
+        border-radius: 5px;
+        background-color: hsl(246, 38%, 25%);
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+        
+    .panel-currencies button:hover {
+        background-color: hsl(246, 38%, 25%);
+        border-color: hsl(246, 38%, 25%);
+    }
+
+    .panel-currencies button:active,
+    .panel-currencies button:focus,
+    .panel-currencies button:checked {
+        background-color: hsl(246, 38%, 25%); 
+        border: 2px solid hsl(246, 38%, 25%);
+    }
+
+    .panel-currencies:hover button:active,
+    .panel-currencies:hover button:focus,
+    .panel-currencies:hover button:checked {
+        background-color: hsl(246, 38%, 45%);
+        border: 2px solid hsl(246, 38%, 25%);
+    }
+
+    .panel-currencies button:checked::before {
+        content: '✓';
+        display: block;
+        text-align: center;
+        color: hsl(246, 38%, 100%);
+        font-size: 16px;
+        line-height: 18px;
+        transition: .3s ease;
+    }
+
+    .panel-currencies:hover button:checked:before {
+        color: hsl(246, 38%, 25%);
+    }
+
 
     /* Add New Product */
     nav .add {
