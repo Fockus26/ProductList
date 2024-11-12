@@ -19,20 +19,20 @@ export function ProductsViewModel({authToken}) {
 
         // Agrega 'rounded-start-5' si no hay página previa
         if (!this.isPrevPage()) {
-            $activePageLink.removeClass("rounded-0");
-            $activePageLink.addClass("rounded-start-2");
+            $activePageLink?.removeClass("rounded-0");
+            $activePageLink?.addClass("rounded-start-2");
         } else {
-            $activePageLink.addClass("rounded-0");
-            $activePageLink.removeClass("rounded-start-2");
+            $activePageLink?.addClass("rounded-0");
+            $activePageLink?.removeClass("rounded-start-2");
         }
 
         // Agrega 'rounded-end-5' si no hay página siguiente
         if (!this.isNextPage()) {
-            $activePageLink.removeClass("rounded-0");
-            $activePageLink.addClass("rounded-end-2");
+            $activePageLink?.removeClass("rounded-0");
+            $activePageLink?.addClass("rounded-end-2");
         } else {
-            $activePageLink.addClass("rounded-0");
-            $activePageLink.removeClass("rounded-end-2");
+            $activePageLink?.addClass("rounded-0");
+            $activePageLink?.removeClass("rounded-end-2");
         }
     };
 
@@ -86,8 +86,9 @@ export function ProductsViewModel({authToken}) {
               
             },
             complete: () => {
-                this.isDataLoaded(true)
                 this.updatePaginationStyles();
+                this.isDataLoaded(true)
+               
             },
         });
     }

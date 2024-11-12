@@ -1,0 +1,55 @@
+<main class="container mt-5">
+    <section aria-labelledby="form-title">
+        <h1 id="form-title" class="mb-4">Crear Producto</h1>
+        <form data-bind="submit: enviarFormulario">
+
+            <!-- SKU -->
+            <div class="mb-3">
+                <label for="sku" class="form-label">SKU</label>
+                <input type="text" id="sku" class="form-control" data-bind="value: sku" required>
+            </div>
+
+            <!-- Código -->
+            <div class="mb-3">
+                <label for="code" class="form-label">Código</label>
+                <input type="number" id="code" class="form-control" data-bind="value: code" required>
+            </div>
+
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre del Producto</label>
+                <input type="text" id="name" class="form-control" data-bind="value: name" required>
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Descripción</label>
+                <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
+            </div>
+
+            <!-- Imágenes (Permite múltiples archivos) -->
+            <div class="mb-3">
+                <label for="pictures" class="form-label">Imágenes del Producto</label>
+                <input type="file" id="pictures" class="form-control" accept="image/*" multiple 
+                       data-bind="event: { change: actualizarImagenes }">
+            </div>
+
+            <!-- Precio -->
+            <div class="mb-3">
+                <label for="price" class="form-label">Precio</label>
+                <input type="number" id="price" class="form-control" min="0" step="0.01" data-bind="value: price" required>
+            </div>
+
+            <!-- Moneda -->
+            <div class="mb-3">
+                <label for="currency" class="form-label">Moneda</label>
+                <input type="text" id="currency" class="form-control" data-bind="value: currency" required>
+            </div>
+
+            <!-- Botón de Enviar -->
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" data-bind="click: enviarFormulario">Crear Producto</button>
+            </div>
+        </form>
+    </section>
+</main>
