@@ -12,13 +12,14 @@ import { CreateViewModel } from "./components/Create/index.js";
     const appModel = this
     this.router = Sammy(function () {
         
+        // Main Route
+
         this.get('/', (context) => {
             context.swap(LoginTemplate);    
-    
-            ko.applyBindings(new LoginViewModel({ loginToken: appModel.loginToken, context: context }));
+            ko.applyBindings(new LoginViewModel({ loginToken: appModel.loginToken, context: context }), $("#login")[0]);
         });
     
-        // Ruta de Products
+        // Products Route
         this.get('#/products', (context) => {
             
             if (appModel.loginToken()) {
@@ -26,30 +27,22 @@ import { CreateViewModel } from "./components/Create/index.js";
             
                 context.swap(ProductsTemplate);
     
-                const productsElement = context.$element()[0]; // Obtener el nodo DOM donde se aplicarán los bindings
-                ko.cleanNode(productsElement);
-    
-                ko.applyBindings(new ProductsViewModel({ authToken: appModel.loginToken }));
+                ko.applyBindings(new ProductsViewModel({ authToken: appModel.loginToken, context }), $("#products")[0]);
                
             } else {
-                console.log('No token found, redirecting to login...');
-               
                 context.redirect('/');
             }
         });
 
 
-          // Ruta de Products
-          this.get('#/addproduct', (context) => {
+          // Create Route
+          this.get('#/create', (context) => {
             
             if (appModel.loginToken()) {
                  
-                context.swap(CreateTemplate);
+                context.swap(CreateTemplate)
     
-                const productsElement = context.$element()[0]; // Obtener el nodo DOM donde se aplicarán los bindings
-                ko.cleanNode(productsElement);
-    
-                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken }));
+                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken }),$("#create")[0]);
                
             } else { 
                 context.redirect('/');

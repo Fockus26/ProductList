@@ -1,6 +1,6 @@
 import { Product } from "./product"
 
-export function ProductsViewModel({authToken}) {
+export function ProductsViewModel({authToken, context}) {
     // Banner Variables
     this.banner = {
         src:'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
@@ -84,6 +84,11 @@ export function ProductsViewModel({authToken}) {
             })
             // Agregamos la clase a esta opcion
             $selectedOption?.addClass('selected')
+        }
+        this.appContext = context
+        this.goToCreate = function(data,event) {
+            event.preventDefault()
+            return this.appContext.redirect("#/create")
         }
 
     // Pagination
@@ -190,7 +195,8 @@ export function ProductsViewModel({authToken}) {
                 complete: () => {
                     this.isDataLoaded(true)
                     this.updatePaginationStyles();       
-                    this.swapFilterIcon();
+                    this.swapFilterIcon();      
+                    // this.styleSelectedOption(); 
                 },
             });
         }
