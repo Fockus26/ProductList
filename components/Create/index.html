@@ -63,8 +63,19 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-center" data-bind="click: submitForm ">
-            <button class="btn btn-outline-dark fw-bold">Add Product</button>
+        <!-- Conditionally Rendered Login Button if isLoading -->
+        <div class="send-data">
+            <div data-bind="ifnot: isLoading">
+                <div class="d-flex justify-content-center" data-bind="click: submitForm ">
+                    <button class="btn btn-outline-dark fw-bold">Add Product</button>
+                </div>
+            </div>
+            <!-- Conditionally Rendered Loader -->
+            <div data-bind="if: isLoading">
+                <div class="spinner-border text-d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
         </div>
     </form>
 </main>

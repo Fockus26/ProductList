@@ -355,6 +355,8 @@
         border: 1px solid hsl(250, 50%, 50%);
     }
 
+    #create .upload-picture input {padding-left: 20px;}
+
     #create .price {max-width: 150px;}
     #create .price input, #create .currency select {
         padding-top: 8px;
@@ -364,7 +366,7 @@
     #create .currency {width: 100%;}
     #create .currency .form-select {color: hsl(246, 39%, 25%);}
 
-    #create .btn {
+    #create .send-data .btn {
         color: hsl(246, 39%, 95%);
         background-color: hsl(246, 39%, 25%);
         border-color: hsl(246, 39%, 95%);
@@ -372,7 +374,12 @@
         font-weight: bolder;
         width: 100%;
     }
-    #create .btn:hover {background-color: hsl(246, 39%, 20%);}
+    #create .send-data .btn:hover {background-color: hsl(246, 39%, 20%);}
+
+    #create .send-data .spinner-border {
+        margin: 0 auto;
+        display: flex;
+    }
 
     #create div.error .form-control, 
     #create div.error .form-select,
