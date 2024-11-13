@@ -3,16 +3,16 @@
     <div data-bind="if: isDataLoaded && allProducts().length">
         <!-- Show Products if there is product data -->
         <nav class="d-flex justify-content-between align-items-center mb-3">
-            <div class="sort">
-                <button data-bind="click: handleShowOptions" class="btn btn-md d-flex gap-2 align-items-center p-0">
+            <div data-bind='event: { mouseover: handleShowOptions }' class="sort">
+                <button class="btn btn-md d-flex gap-2 align-items-center p-0">
                     <i class="bi"></i>
-                    <span>Ordenar:</span>
+                    <span>Sort</span>
                     <span data-bind="text: actualOption"></span>
                 </button>
 
-                <ul class="options rounded-2" data-bind="if: showOptions">
+                <ul class="options rounded-2" data-bind="if: showOptions" >
                     <div data-bind="foreach: options">
-                        <div data-bind="click: () => $parent.selectOption($data.title)" class="option d-flex align-items-center justify-content-between">
+                        <div data-bind="click: () => $parent.selectOption($data.title), event: { mouseout: $parent.handleShowOptions }" class="option d-flex align-items-center justify-content-between">
                             <li data-bind="text: $data.title">
                             </li>
 
@@ -65,9 +65,7 @@
                     <h3 class="card-title" data-bind="text: name"></h3>
                     <p class="card-text description" data-bind="text: description"></p>
                     <p class="card-text price"><strong><span data-bind="text: pricing"></span></strong></p>
-                    <div class="card-btn">
-                        <a data-bind="attr: {href: '#container-' + $index()}" class="btn text-white">View Details</a>
-                    </div>
+                    <p class="card-text sku" data-bind="text: sku, visible: sku"></p>
                 </div>
             </article>
         </main>

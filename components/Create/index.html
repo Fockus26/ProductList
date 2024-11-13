@@ -1,5 +1,8 @@
 <main class="container d-flex flex-column gap-5 align-items-center justify-content-center" id="create">
-    <h1 class="form-title">Add Product</h1>
+    <header>
+        <i data-bind="click: backPage" class="bi bi-arrow-left-circle"></i>
+        <h1 class="form-title">Add Product</h1>
+    </header>
     <form class="d-flex flex-column gap-3 p-3 rounded-2" data-bind="submit: submitForm">
 
         <!-- Technical Info -->
@@ -24,9 +27,11 @@
         </div>
 
         <!-- Description -->
-        <div class="form-floating description" data-bind="css: descriptionError() ? 'error shake' : ''"> <!-- Show error if descriptionError() is true -->
-            <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
+        <div class="description form-control" data-bind="css: descriptionError() ? 'error shake' : ''"> <!-- Show error if descriptionError() is true -->
             <label for="description" class="form-label fw-bolder">Description</label>
+            <div class="grow-wrap">
+                <textarea onInput="this.parentNode.dataset.replicatedValue = this.value" id="description" rows="3" data-bind="value: description" required></textarea>
+            </div>
         </div>
 
         <!-- Images -->
@@ -62,22 +67,17 @@
             <button class="btn btn-outline-dark fw-bold">Add Product</button>
         </div>
     </form>
-
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true" data-bind="visible: isUploaded()">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Product Added Successfully</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Your product has been added successfully!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </main>
+
+<!-- Success Modal -->
+<div class="modal fade show" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Product Added Successfully</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Your product has been added successfully!</div>
+    </div>
+    </div>
+</div>

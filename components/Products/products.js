@@ -11,7 +11,6 @@ export function ProductsViewModel({authToken, context}) {
 
     // When the URL does not return an image
     self.errorImg = function(_, event) {
-        console.log("src",event.target.src)
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
     }
 
@@ -113,6 +112,7 @@ export function ProductsViewModel({authToken, context}) {
         self.handleShowOptions = function() {
             self.showOptions(!self.showOptions())
             self.swapFilterIcon()
+            
         }
         self.selectOption = function(title) {
             let option = self.options().filter((option) => option.title === title)[0]
@@ -186,6 +186,7 @@ export function ProductsViewModel({authToken, context}) {
                     if (response) {
                         // Gets all products
                         this.allProducts(response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures })))
+                        console.log(this.allProducts())
                         // Gets the total number of pages based on the products per page
                         this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
                         // Groups products into batches based on the maximum products per page

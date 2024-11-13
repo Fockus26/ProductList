@@ -42,7 +42,7 @@ import { CreateViewModel } from "./components/Create/index.js";
                  
                 context.swap(CreateTemplate)
     
-                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken }),$("#create")[0]);
+                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken, context: context }),$("#create")[0]);
                
             } else { 
                 context.redirect('/');

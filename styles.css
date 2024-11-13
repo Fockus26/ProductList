@@ -83,10 +83,7 @@
     @media only screen and (max-width: 768px) {#products .products {grid-template-columns: 1fr;}}
 
     /* Sorting */
-    nav .sort  {
-        height: 100%;
-        position: relative;
-    }
+    nav .sort  {position: relative;}
 
     nav .sort button {color: hsl(246, 39%, 95%);}
     nav .sort button:hover {color: hsl(246, 39%, 100%);}
@@ -174,7 +171,7 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        min-height: 30px;
+        min-height: 50px;
     }
 
     #products .card-body .card-text {
@@ -187,19 +184,6 @@
         -webkit-box-orient: vertical;
     }
     #products .card-body .card-text.price {min-height: 30px;}
-
-    #products .card-body .card-btn {
-        height: 100%;
-        display: flex;
-    }
-    #products .card-body .card-btn .btn {
-        align-self: flex-end;
-        background-color: hsl(246, 39%, 35%);
-        padding: 8px 16px;
-        cursor: pointer;
-    }
-    #products .card-body .card-btn .btn:hover {background-color: hsl(246, 39%, 40%);}
-    @media only screen and (max-width: 992px) {#products .card-body .card-btn .btn {width: 100%;}}
 
     /* Loading Product */
     main.skeleton {height: 100vh;}
@@ -271,14 +255,29 @@
 
 
 /* Create Product */
-    #create.container {padding: 30px 0px;}
-
-    #create form {
-        background-color: hsl(246, 39%, 90%);
-        transition: 1s ease;
-        box-shadow: 0px 0px 50px hsl(250, 50%, 50%);
+    #create.container {
+        padding: 30px 0px;
+        position: relative;
     }
-    #create form:hover {transform: scale(1.01);}
+
+    #create header {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        justify-content: center;
+    }
+
+    #create header i {
+        position: absolute;
+        left: 0px;
+        font-size: 36px;
+        color: hsl(246, 39%, 90%);
+        cursor: pointer;
+        line-height: 0px;
+        transition: .5s ease;
+    }
+    #create header i:hover {transform: translateX(-3px);}
 
     #create .form-title {
         color: hsl(246, 38%, 95%);
@@ -290,6 +289,13 @@
             0px 0px 20px hsl(250, 50%, 40%);
     }
     @media only screen and (max-width: 592px) {#create .form-title {font-size: 36px;}}
+
+    #create form {
+        background-color: hsl(246, 39%, 90%);
+        transition: 1s ease;
+        box-shadow: 0px 0px 50px hsl(250, 50%, 50%);
+    }
+    #create form:hover {transform: scale(1.01);}
 
     #create .form-label {
         color: hsl(246, 39%, 25%);
@@ -314,21 +320,39 @@
     }
     #create input[type='number'] {-moz-appearance: textfield}
 
-    #create .description textarea {
-        max-height: 120px;
-        overflow: hidden;
+    #create .description .grow-wrap {
+        display: grid;
+        max-width: 325px;
     }
+
+    #create .description .grow-wrap::after {
+        content: attr(data-replicated-value) " ";
+        white-space: pre-wrap;
+        visibility: hidden;
+    }
+
+    #create .description .grow-wrap textarea {
+        resize: none;
+        overflow: hidden;
+        width: 325px;
+        border: none;
+        background-color: hsl(246, 69%, 80%);
+    }
+    #create .description .grow-wrap textarea:focus {outline: 0px;}
+
+    #create .description .grow-wrap textarea,
+    #create .description .grow-wrap::after {grid-area: 1 / 1 / 2 / 2;}
 
     #create .upload-picture label {
         cursor: pointer;
         width: 112px;
-        height: 38px;
+        height: 37.6px;
         background-color: hsl(246, 39%, 50%);
         color: hsl(246, 39%, 95%);
         position: absolute;
         border-top-left-radius: 7px;
         border-bottom-left-radius: 7px;
-        border: 1px solid;
+        border: 1px solid hsl(250, 50%, 50%);
     }
 
     #create .price {max-width: 150px;}
@@ -346,11 +370,14 @@
         border-color: hsl(246, 39%, 95%);
         padding: 15px 20px;
         font-weight: bolder;
+        width: 100%;
     }
     #create .btn:hover {background-color: hsl(246, 39%, 20%);}
 
     #create div.error .form-control, 
-    #create div.error .form-select {
+    #create div.error .form-select,
+    #create .description.error,
+    #create .description.error textarea {
         border-color: hsl(354, 70%, 50%);
         background-color: hsl(354, 70%, 80%);
         color: hsl(354, 70%, 30%);
@@ -372,3 +399,18 @@
 
     /* Clase para activar el shake */
     .shake {animation: shake 0.3s ease;}
+
+    .modal {
+        background-color: hsl(248, 45%, 37%, .5);
+    }
+
+    .modal-dialog {justify-content: center;}
+
+    .modal-content {
+        color: hsl(248, 45%, 37%);
+        border-color: hsl(248, 45%, 37%);
+        max-width: 400px;
+    }
+
+    .modal-header {border-color: hsl(230, 39%, 25%);}
+    .modal-header button:focus {box-shadow: none;}
