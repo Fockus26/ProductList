@@ -8,21 +8,12 @@
             <div class="form-floating sku" data-bind="css: skuError() ? 'error shake' : ''"> <!-- Show error if skuError() is true -->
                 <input id="sku" type="text" class="form-control" data-bind="value: sku" required>
                 <label for="sku" class="form-label fw-bolder">SKU</label>
-<<<<<<< HEAD
-                
-=======
-                <span data-bind="text: skuError(), visible: skuError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
             </div>
 
             <!-- Code -->
             <div class="form-floating code" data-bind="css: codeError() ? 'error shake' : ''"> <!-- Show error if codeError() is true -->
                 <input type="number" id="code" class="form-control" data-bind="value: code" required>
                 <label for="code" class="form-label fw-bolder">Code</label>
-<<<<<<< HEAD
-=======
-                <span data-bind="text: codeError(), visible: codeError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
             </div>
         </div>
 
@@ -30,20 +21,12 @@
         <div class="form-floating name" data-bind="css: nameError() ? 'error shake' : ''"> <!-- Show error if nameError() is true -->
             <input id="name" type="text" class="form-control" data-bind="value: name" required>
             <label for="name" class="form-label fw-bolder">Product Name</label>
-<<<<<<< HEAD
-=======
-            <span data-bind="text: nameError(), visible: nameError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
         </div>
 
         <!-- Description -->
         <div class="form-floating description" data-bind="css: descriptionError() ? 'error shake' : ''"> <!-- Show error if descriptionError() is true -->
             <textarea id="description" class="form-control" rows="3" data-bind="value: description" required></textarea>
             <label for="description" class="form-label fw-bolder">Description</label>
-<<<<<<< HEAD
-=======
-            <span data-bind="text: descriptionError(), visible: descriptionError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
         </div>
 
         <!-- Images -->
@@ -52,12 +35,7 @@
                 <!-- <i class="bi bi-cloud-arrow-up-fill"></i>  -->
                 Choose Files
             </label>
-<<<<<<< HEAD
             <input id="upload-picture" multiple type="file" class="form-control visible-hidden" accept="image/*" data-bind="event: { change: uploadImages }">
-=======
-            <input id="upload-picture" multiple type="file" class="form-control" accept="image/*" data-bind="event: { change: uploadImages }">
-            <span data-bind="text: imagesError(), visible: imagesError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
         </div>
 
         <!-- Financial Info -->
@@ -66,10 +44,6 @@
             <div class="price" data-bind="css: priceError() ? 'error shake' : ''"> <!-- Show error if priceError() is true -->
                 <label for="price" class="form-label fw-bolder">Price</label>
                 <input type="number" id="price" class="form-control" min="0" step="0.01" data-bind="value: price" required>
-<<<<<<< HEAD
-=======
-                <span data-bind="text: priceError(), visible: priceError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
             </div>
 
             <!-- Currency -->
@@ -81,10 +55,6 @@
                     <option value="USD">USD</option>
                     <option value="s./">s./</option>
                 </select>
-<<<<<<< HEAD
-=======
-                <span data-bind="text: currencyError(), visible: currencyError()"></span>
->>>>>>> 1589f076fe0ff9e967b79a028d2cd9b6a4dd3848
             </div>
         </div>
 
