@@ -1,4 +1,5 @@
-export function CreateViewModel({ authToken, context }) {
+import { Product } from "../Products/product";
+export function CreateViewModel({ authToken, context, products }) {
     var self = this;
 
     self.backPage = function() {context.redirect('#/products')}
@@ -14,6 +15,7 @@ export function CreateViewModel({ authToken, context }) {
     self.token = authToken;
     self.cloudName = "drspvzzg8";
     self.uploadPreset = "ml_default";
+    self.products = products
 
     // Error messages for each field
     self.skuError = ko.observable(false);
@@ -150,7 +152,7 @@ export function CreateViewModel({ authToken, context }) {
                     self.price('');
                     self.currency('');
                     self.images([]); // Clear the images array
-                    
+                    self.products().push(new Product(formData))
                     $('#upload-picture').val('')
 
                     // Set isUploaded to true

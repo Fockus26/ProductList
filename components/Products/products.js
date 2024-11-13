@@ -1,6 +1,6 @@
 import { Product } from "./product"
 
-export function ProductsViewModel({authToken, context}) {
+export function ProductsViewModel({authToken, context, products}) {
 
     const self = this
 
@@ -48,9 +48,9 @@ export function ProductsViewModel({authToken, context}) {
             }
         };
         // Handles pagination
-        this.handlePagination = function(direction) {
+        self.handlePagination = function(direction) {
             if (direction === 'next') {
-                self.actualPage(this.actualPage() + 1)
+                self.actualPage(self.actualPage() + 1)
             } else if (direction === 'prev') {
                 self.actualPage(self.actualPage() - 1)
             } else {
@@ -63,13 +63,13 @@ export function ProductsViewModel({authToken, context}) {
             self.isNextPage(self.actualPage() < self.totalPages() - 1)
 
             // Updates pagination styles after changing the page
-            this.updatePaginationStyles();
+            self.updatePaginationStyles();
             // Cancel timeout
-            if (this.scrollTimeout) {
-                clearTimeout(this.scrollTimeout);
+            if (self.scrollTimeout) {
+                clearTimeout(self.scrollTimeout);
             }
             // Wait 2 seconds
-            this.scrollTimeout = setTimeout(() => {
+            self.scrollTimeout = setTimeout(() => {
                 $(".container")[0].scrollIntoView({
                     behavior: "smooth",
                     block: "start"
@@ -113,7 +113,7 @@ export function ProductsViewModel({authToken, context}) {
             $sortIcon?.addClass(`bi-sort-${direction}`);
         }
         // Handles the options
-        self.handleShowOptions = function(data, event) {
+        self.handleShowOptions = function() {
             self.showOptions(!self.showOptions())
             self.swapFilterIcon()
             
@@ -147,7 +147,7 @@ export function ProductsViewModel({authToken, context}) {
 
     // Data
         // Product Variables
-        self.allProducts = ko.observableArray([])
+        self.allProducts = products
         self.batchProducts = ko.observableArray([])
         // Data Variables
         self.authToken = authToken
@@ -180,7 +180,23 @@ export function ProductsViewModel({authToken, context}) {
             );
         }
         self.getData = function(token) {
-            console.log("HOLAAA", this.allProducts())
+            if(self.allProducts().length) {
+                this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
+                self.isNextPage(self.actualPage() < this.totalPages())
+                // Groups products into batches based on the maximum products per page
+                this.groupProducts()
+
+                // Get all currencies of the products
+                const allCurrencies = this.allProducts().map(product => product.currency);
+                // Remove duplicates using a Set
+                this.currencies([...new Set(allCurrencies)]);
+
+                self.isDataLoaded(true)
+                self.updatePaginationStyles();       
+                self.swapFilterIcon();    
+                return
+            }
+
             $.ajax({
                 url: "http://vps.churrasco.digital:3000/products",
                 method: "GET",
@@ -189,17 +205,17 @@ export function ProductsViewModel({authToken, context}) {
                 success: (response) => {
                     if (response) {
                         // Gets all products
-                        this.allProducts(response.map(({ name, description, price, SKU, currency, pictures }) => new Product({ name, description, price, sku:SKU, currency, pictures })))
+                        self.allProducts(response.map(({ name, description, price, SKU, currency, pictures }) => new Product({ name, description, price, sku:SKU, currency, pictures })))
                         // Gets the total number of pages based on the products per page
-                        this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
-                        self.isNextPage(self.actualPage() < this.totalPages())
+                        self.totalPages(Math.ceil(self.allProducts().length / self.productsPerPage))
+                        self.isNextPage(self.actualPage() < self.totalPages())
                         // Groups products into batches based on the maximum products per page
-                        this.groupProducts()
+                        self.groupProducts()
 
                         // Get all currencies of the products
-                        const allCurrencies = this.allProducts().map(product => product.currency);
+                        const allCurrencies = self.allProducts().map(product => product.currency);
                         // Remove duplicates using a Set
-                        this.currencies([...new Set(allCurrencies)]);
+                        self.currencies([...new Set(allCurrencies)]);
                     } 
                 },
                 error: () => {
@@ -209,9 +225,9 @@ export function ProductsViewModel({authToken, context}) {
                         }
                 },
                 complete: () => {
-                    this.isDataLoaded(true)
-                    this.updatePaginationStyles();       
-                    this.swapFilterIcon();      
+                    self.isDataLoaded(true)
+                    self.updatePaginationStyles();       
+                    self.swapFilterIcon();      
                 },
             });
         }

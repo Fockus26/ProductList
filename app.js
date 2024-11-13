@@ -8,7 +8,7 @@ import { CreateViewModel } from "./components/Create/index.js";
 
  function AppViewModel() {
     this.loginToken = ko.observable("");
-
+    this.allProducts = ko.observableArray([])
     const appModel = this
     this.router = Sammy(function () {
         
@@ -27,7 +27,7 @@ import { CreateViewModel } from "./components/Create/index.js";
             
                 context.swap(ProductsTemplate);
     
-                ko.applyBindings(new ProductsViewModel({ authToken: appModel.loginToken, context }), $("#products")[0]);
+                ko.applyBindings(new ProductsViewModel({ authToken: appModel.loginToken, context, products:appModel.allProducts }), $("#products")[0]);
                
             } else {
                 context.redirect('/');
@@ -42,7 +42,7 @@ import { CreateViewModel } from "./components/Create/index.js";
                  
                 context.swap(CreateTemplate)
     
-                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken, context: context }),$("#create")[0]);
+                ko.applyBindings(new CreateViewModel({ authToken: appModel.loginToken, context, products:appModel.allProducts  }),$("#create")[0]);
                
             } else { 
                 context.redirect('/');
