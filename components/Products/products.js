@@ -1,33 +1,36 @@
 import { Product } from "./product"
 
 export function ProductsViewModel({authToken, context}) {
+
+    const self = this
     // Banner Variables
-    this.banner = {
-        src:'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
+    self.banner = {
+        src: 'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
         alt: 'churrasco banner'
     }
 
-    // Cuando la url no regresa una imagen
-    this.errorImg = function(data, event) {
+    // When the URL does not return an image
+    self.errorImg = function(_, event) {
+        console.log("src",event.target.src)
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
     }
 
     // Pagination
         // Pagination Variables
-        this.productsPerPage = 15
-        this.totalPages = ko.observable()
-        this.actualPage = ko.observable(1)
-        this.nextPage = ko.observable(this.actualPage() + 1)
-        this.isNextPage = ko.observable(true)
-        this.prevPage = ko.observable(this.actualPage() - 1)
-        this.isPrevPage = ko.observable(false)
-        this.scrollTimeout = null;
-        // Agrega estilos dependiendo de la paginacion
-        this.updatePaginationStyles = function() {
+        self.productsPerPage = 15
+        self.totalPages = ko.observable()
+        self.actualPage = ko.observable(1)
+        self.nextPage = ko.observable(self.actualPage() + 1)
+        self.isNextPage = ko.observable(self)
+        self.prevPage = ko.observable(self.actualPage() - 1)
+        self.isPrevPage = ko.observable(self)
+        self.scrollTimeout = null;
+        // Adds styles based on pagination
+        self.updatePaginationStyles = function() {
             const $activePageLink = $(".page-item.active > .page-link");
 
-            // Agrega 'rounded-start-5' si no hay página previa
-            if (!this.isPrevPage()) {
+            // Adds 'rounded-start-5' if there's no previous page
+            if (!self.isPrevPage()) {
                 $activePageLink?.removeClass("rounded-0");
                 $activePageLink?.addClass("rounded-start-2");
             } else {
@@ -35,8 +38,8 @@ export function ProductsViewModel({authToken, context}) {
                 $activePageLink?.removeClass("rounded-start-2");
             }
 
-            // Agrega 'rounded-end-5' si no hay página siguiente
-            if (!this.isNextPage()) {
+            // Adds 'rounded-end-5' if there's no next page
+            if (!self.isNextPage()) {
                 $activePageLink?.removeClass("rounded-0");
                 $activePageLink?.addClass("rounded-end-2");
             } else {
@@ -44,22 +47,22 @@ export function ProductsViewModel({authToken, context}) {
                 $activePageLink?.removeClass("rounded-end-2");
             }
         };
-        // Maneja la paginacion
+        // Handles pagination
         this.handlePagination = function(direction) {
             if (direction === 'next') {
-                this.actualPage(this.actualPage() + 1)
+                self.actualPage(this.actualPage() + 1)
             } else if (direction === 'prev') {
-                this.actualPage(this.actualPage() - 1)
+                self.actualPage(self.actualPage() - 1)
             } else {
-                this.actualPage(this.actualPage() === direction ? this.actualPage() : this.actualPage() < direction ? this.actualPage() + 1 : this.actualPage() - 1)
+                self.actualPage(self.actualPage() === direction ? self.actualPage() : self.actualPage() < direction ? self.actualPage() + 1 : self.actualPage() - 1)
             }
             
-            this.prevPage(this.actualPage() - 1)
-            this.isPrevPage(this.actualPage() > 1)
-            this.nextPage(this.actualPage() + 1)
-            this.isNextPage(this.actualPage() < this.totalPages() - 1)
+            self.prevPage(self.actualPage() - 1)
+            self.isPrevPage(self.actualPage() > 1)
+            self.nextPage(self.actualPage() + 1)
+            self.isNextPage(self.actualPage() < self.totalPages() - 1)
 
-            // Actualiza los estilos de paginación después de cambiar la página
+            // Updates pagination styles after changing the page
             this.updatePaginationStyles();
             // Si ya existe un temporizador, cancelarlo
             if (this.scrollTimeout) {
@@ -73,21 +76,21 @@ export function ProductsViewModel({authToken, context}) {
 
     // Sort
         // Sort Variables
-        this.showOptions = ko.observable(false)
-        this.options = ko.observableArray(
+        self.showOptions = ko.observable(false)
+        self.options = ko.observableArray(
             [
-                {type: "alphabetic", title: "Por Titulo", value: null}, 
-                {type: "numeric", title: "Por Precio", value: null}
+                {type: "alphabetic", title: "By Name", value: null}, 
+                {type: "numeric", title: "By Price", value: null}
             ]
         )
-        this.actualOption = ko.observable(this.options()[0].title)
-        this.currencies = ko.observableArray([])
-        this.showCurrencies = ko.observable(false)
-        // Cambia el estilo del icono
-        this.swapFilterIcon = function() {
+        self.actualOption = ko.observable(self.options()[0].title)
+        self.currencies = ko.observableArray([])
+        self.showCurrencies = ko.observable(false)
+        // Changes the style of the icon
+        self.swapFilterIcon = function() {
             const $filterIcon = $(".sort button i");
 
-            if (!this.showOptions()) {
+            if (!self.showOptions()) {
                 $filterIcon?.removeClass("bi-filter");
                 $filterIcon?.addClass("bi-filter-left");
             } else {
@@ -95,8 +98,8 @@ export function ProductsViewModel({authToken, context}) {
                 $filterIcon?.removeClass("bi-filter-left");
             }
         };
-        this.swapSortIcon = function(title, value) {
-            let option = this.options().filter((option) => option.title === title)[0]
+        self.swapSortIcon = function(title, value) {
+            let option = self.options().filter((option) => option.title === title)[0]
 
             const $sortIcon = $(`.sort .options .option i[aria-label=${option.type}]`);
 
@@ -106,74 +109,74 @@ export function ProductsViewModel({authToken, context}) {
             $sortIcon?.removeClass(`bi-sort-${latestDirection}`);
             $sortIcon?.addClass(`bi-sort-${direction}`);
         }
-        // Maneja las opciones
-        this.handleShowOptions = function() {
-            this.showOptions(!this.showOptions())
-            this.swapFilterIcon()
+        // Handles the options
+        self.handleShowOptions = function() {
+            self.showOptions(!self.showOptions())
+            self.swapFilterIcon()
         }
-        this.selectOption = function(title) {
-            let option = this.options().filter((option) => option.title === title)[0]
+        self.selectOption = function(title) {
+            let option = self.options().filter((option) => option.title === title)[0]
             option.value = option.value || 'desc'
             option.value === 'asc' ? option.value = 'desc' : option.value = 'asc'
 
-            this.groupProducts(option.type, option.value)
-            this.actualOption(title)
-            this.styleSelectedOption()
-            this.swapSortIcon(title, option.value)
+            self.groupProducts(option.type, option.value)
+            self.actualOption(title)
+            self.styleSelectedOption()
+            self.swapSortIcon(title, option.value)
         }
-        const productViewModel = this
-        this.styleSelectedOption = function() {
-            // Remueve la clase al anterior elemento
+      
+        self.styleSelectedOption = function() {
+            // Removes the class from the previous element
             $(".sort .options .option.selected").removeClass('selected');
-            // Obtiene la opcion que estamos buscando
+            // Gets the option we're looking for
             const $selectedOption = $(".sort .options .option").filter(function() {
-                return $(this).text() === productViewModel.actualOption()
+                return $(this).text() === self.actualOption()
             })
-            // Agregamos la clase a esta opcion
+            // Adds the class to this option
             $selectedOption?.addClass('selected')
         }
-        this.appContext = context
-        this.goToCreate = function(data,event) {
+        self.appContext = context
+        self.goToCreate = function(_, event) {
             event.preventDefault()
-            return this.appContext.redirect("#/create")
+            return self.appContext.redirect("#/create")
         }
 
     // Data
         // Product Variables
-        this.allProducts = ko.observableArray([])
-        this.batchProducts = ko.observableArray([])
+        self.allProducts = ko.observableArray([])
+        self.batchProducts = ko.observableArray([])
         // Data Variables
-        this.authToken = authToken
-        this.isDataLoaded = ko.observable(false)
-        // Usamos Array.from para crear los lotes de productos
-        this.groupProducts = function(type=null, value=null) {
-            let products = this.allProducts();
+        self.authToken = authToken
+        self.isDataLoaded = ko.observable(false)
+        // Uses Array.from to create batches of products
+        self.groupProducts = function(type = null, value = null) {
+            let products = self.allProducts();
 
             [type, value] = [type || 'alphabetic', value || 'asc']
 
             if (type === 'alphabetic') {
                 if (value === 'asc') {
-                    products = products.sort((a, b) => a.name.localeCompare(b.name)); // Orden ascendente
+                    products = products.sort((a, b) => a.name.localeCompare(b.name)); // Ascending order
                 } else if (value === 'desc') {
-                    products = products.sort((a, b) => b.name.localeCompare(a.name)); // Orden descendente
+                    products = products.sort((a, b) => b.name.localeCompare(a.name)); // Descending order
                 }
             } else if (type === 'numeric') {
                 if (value === 'asc') {
-                    products = products.sort((a, b) => a.price - b.price); // Orden ascendente
+                    products = products.sort((a, b) => a.price - b.price); // Ascending order
                 } else if (value === 'desc') {  
-                    products = products.sort((a, b) => b.price - a.price); // Orden descendente
+                    products = products.sort((a, b) => b.price - a.price); // Descending order
                 }
             }
         
-            // Después de ordenar, creamos los lotes de productos
-            this.batchProducts(
-                Array.from({ length: this.totalPages() }, (_, index) => {
-                    return products.slice(index * this.productsPerPage, (index + 1) * this.productsPerPage);
+            // After sorting, we create product batches
+            self.batchProducts(
+                Array.from({ length: self.totalPages() }, (_, index) => {
+                    return products.slice(index * self.productsPerPage, (index + 1) * self.productsPerPage);
                 })
             );
         }
-        this.getData = function(token) {
-        
+        self.getData = function(token) {
+            
             $.ajax({
                 url: "http://vps.churrasco.digital:3000/products", 
                 method: "GET",
@@ -181,31 +184,32 @@ export function ProductsViewModel({authToken, context}) {
                 headers: {'Authorization': 'Bearer ' + token},
                 success: (response) => {
                     if (response) {
-                        // Obtengo todos los productos
+                        // Gets all products
                         this.allProducts(response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures })))
-                        // Obtengo el total de paginas segun los productos que deben haber por pagina
+                        // Gets the total number of pages based on the products per page
                         this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
-                        // Obtenemos lotes de productos segun la cantidad maxima que debe haber en una pagina
+                        // Groups products into batches based on the maximum products per page
                         this.groupProducts()
 
-                        // Obtener todas las currencies de los productos
+                        // Get all currencies of the products
                         const allCurrencies = this.allProducts().map(product => product.currency);
-                        // Eliminar duplicados usando un Set
+                        // Remove duplicates using a Set
                         this.currencies([...new Set(allCurrencies)]);
                     } 
                 },
-                error: ({error}) => {
-                    console.log("error", error)
-                
+                error: () => {
+                        if(self.authToken()) {
+                            self.authToken("");
+                        context.redirect("/");
+                        }
                 },
                 complete: () => {
                     this.isDataLoaded(true)
                     this.updatePaginationStyles();       
                     this.swapFilterIcon();      
-                    this.updateCarouselIconColor(4)
                 },
             });
         }
 
-        this.getData(this.authToken())
+        self.getData(self.authToken())
 }

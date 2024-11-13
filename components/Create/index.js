@@ -22,6 +22,9 @@ export function CreateViewModel({ authToken }) {
     self.currencyError = ko.observable(false);
     self.imagesError = ko.observable(false);
 
+    // New state for upload success
+    self.isUploaded = ko.observable(false);
+
     // Helper to clear errors when a field is updated
     function clearError(field) {
         if (field) {
@@ -41,9 +44,8 @@ export function CreateViewModel({ authToken }) {
     // Method to store the selected images
     self.uploadImages = function (_, event) {
         var files = event.target.files;
-        var fileArray = Array.from(files);
-        self.images(fileArray); // Save the selected images
-        if (fileArray.length === 0) {
+        self.images(files); // Save the selected images
+        if (files.length === 0) {
             self.imagesError(true);
         } else {
             self.imagesError(false); // Clear error if images are selected
@@ -88,7 +90,6 @@ export function CreateViewModel({ authToken }) {
 
     // Method to submit the form
     self.submitForm = function() {
-        console.log("HOLA")
         if (!self.validateForm()) return; // Stop if validation fails
 
         var formData = {
@@ -103,22 +104,24 @@ export function CreateViewModel({ authToken }) {
         };
 
         // Upload images to Cloudinary and get the URLs
-        const uploadPromises = self.images().map(function(file) {
+        const uploadPromises = Array.from(self.images()).map(function(file) {
             return new Promise(function(resolve, reject) {
                 var uploadData = new FormData();
                 uploadData.append('file', file);
                 uploadData.append('upload_preset', self.uploadPreset);
-
+               
                 $.ajax({
                     url: `https://api.cloudinary.com/v1_1/${self.cloudName}/image/upload`,
                     type: 'POST',
                     data: uploadData,
                     processData: false,
-                    contentType: false,
+                    contentType: false, 
                     success: function(response) {
+                       
                         resolve(response.secure_url);
                     },
                     error: function(error) {
+                        console.error("Error", error);
                         reject(error);
                     }
                 });
@@ -127,25 +130,36 @@ export function CreateViewModel({ authToken }) {
 
         // Wait for all images to be uploaded before submitting the form
         Promise.all(uploadPromises).then(function(imageUrls) {
-            formData.images = imageUrls; // Assign the uploaded image URLs to the form data
-            console.log("URL",imageUrls)
-            console.log("TOKEN",self.token)
+            formData.pictures = imageUrls; // Assign the uploaded image URLs to the form data
+        
             // Send the product information along with the image URLs
             $.ajax({
                 url: 'http://vps.churrasco.digital:3000/addproduct',
                 type: 'POST',
                 contentType: 'application/json',
-                headers: { 'Authorization': 'Bearer ' + self.token },
+                headers: { 'Authorization': 'Bearer ' + self.token() },
                 data: JSON.stringify(formData),
                 success: function(res) {
-                    console.log("Product added successfully", res);
+                    // Reset form fields
+                    self.sku('');
+                    self.code('');
+                    self.name('');
+                    self.description('');
+                    self.price('');
+                    self.currency('');
+                    self.images([]); // Clear the images array
+
+                    // Set isUploaded to true
+                    self.isUploaded(true);
+
                 },
                 error: function() {
-                    console.log("Error adding product");
+                    context.redirect("/")
+                    
                 }
             });
         }).catch(function() {
-            console.log("Error uploading images");
+            console.error("Error uploading images");
         });
     };
 }
