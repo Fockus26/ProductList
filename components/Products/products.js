@@ -61,14 +61,14 @@ export function ProductsViewModel({authToken, context}) {
 
             // Actualiza los estilos de paginación después de cambiar la página
             this.updatePaginationStyles();
-            // // Si ya existe un temporizador, cancelarlo
-            // if (this.scrollTimeout) {
-            //     clearTimeout(this.scrollTimeout);
-            // }
-            // // Espera 2 segundos antes de hacer scroll hasta el contenedor de los productos
-            // this.scrollTimeout = setTimeout(() => {
-            //     document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
-            // }, 500); 
+            // Si ya existe un temporizador, cancelarlo
+            if (this.scrollTimeout) {
+                clearTimeout(this.scrollTimeout);
+            }
+            // Espera 2 segundos antes de hacer scroll hasta el contenedor de los productos
+            this.scrollTimeout = setTimeout(() => {
+                document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+            }, 500); 
         }
 
     // Sort
@@ -202,7 +202,7 @@ export function ProductsViewModel({authToken, context}) {
                     this.isDataLoaded(true)
                     this.updatePaginationStyles();       
                     this.swapFilterIcon();      
-                    // this.styleSelectedOption(); 
+                    this.updateCarouselIconColor(4)
                 },
             });
         }

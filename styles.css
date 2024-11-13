@@ -160,6 +160,12 @@
         height: 250px;
     }
 
+    #products .carousel a i {
+        font-size: 24px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+    }
+
     #products .card-body {background-color: hsl(246, 39%, 92.5%);}
 
     #products .card-body .card-title {
@@ -285,15 +291,19 @@
     }
     @media only screen and (max-width: 592px) {#create .form-title {font-size: 36px;}}
 
-    #create .form-label {color: hsl(246, 39%, 25%);}
+    #create .form-label {
+        color: hsl(246, 39%, 25%);
+        transition: .35s ease;
+    }
     #create .form-label::after {background-color: transparent;}
 
     #create .form-control, #create .form-select {
         border-color: hsl(250, 50%, 50%);
         background-color: hsl(246, 69%, 80%);
         color: hsl(246, 39%, 25%);
+        transition: .35s ease;
     }
-    #create .form-control:focus, #create .form-select {box-shadow: none;}
+    #create .form-control:focus, #create .form-select {box-shadow: none;} 
 
     #create .sku {width: 100%;}
     #create .code {width: 100px;}
@@ -304,18 +314,22 @@
     }
     #create input[type='number'] {-moz-appearance: textfield}
 
-    #create .description textarea {max-height: 120px;}
+    #create .description textarea {
+        max-height: 120px;
+        overflow: hidden;
+    }
 
     #create .upload-picture label {
-        padding: 9px 12px;
         cursor: pointer;
-        width: 100%;
+        width: 112px;
+        height: 38px;
         background-color: hsl(246, 39%, 50%);
         color: hsl(246, 39%, 95%);
-        transition: .5s ease;
+        position: absolute;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+        border: 1px solid;
     }
-    #create .upload-picture label:hover {background-color: hsl(246, 39%, 45%);}
-    #create .upload-picture input {display: none;}
 
     #create .price {max-width: 150px;}
     #create .price input, #create .currency select {
@@ -334,3 +348,27 @@
         font-weight: bolder;
     }
     #create .btn:hover {background-color: hsl(246, 39%, 20%);}
+
+    #create div.error .form-control, 
+    #create div.error .form-select {
+        border-color: hsl(354, 70%, 50%);
+        background-color: hsl(354, 70%, 80%);
+        color: hsl(354, 70%, 30%);
+    }
+    #create div.error.upload-picture label {
+        border-color: hsl(354, 70%, 50%);
+        background-color: hsl(354, 70%, 80%);
+    }
+    #create div.error label {color: hsl(354, 70%, 30%);} 
+
+    /* Define la animación shake */
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+
+    /* Clase para activar el shake */
+    .shake {animation: shake 0.3s ease;}

@@ -14,18 +14,18 @@ export function CreateViewModel({ authToken }) {
     self.uploadPreset = "ml_default";
 
     // Error messages for each field
-    self.skuError = ko.observable('');
-    self.codeError = ko.observable('');
-    self.nameError = ko.observable('');
-    self.descriptionError = ko.observable('');
-    self.priceError = ko.observable('');
-    self.currencyError = ko.observable('');
-    self.imagesError = ko.observable('');
+    self.skuError = ko.observable(false);
+    self.codeError = ko.observable(false);
+    self.nameError = ko.observable(false);
+    self.descriptionError = ko.observable(false);
+    self.priceError = ko.observable(false);
+    self.currencyError = ko.observable(false);
+    self.imagesError = ko.observable(false);
 
     // Helper to clear errors when a field is updated
     function clearError(field) {
         if (field) {
-            field('');  // Clear specific field error
+            field(false);  // Clear specific field error
         }
     }
 
@@ -44,9 +44,9 @@ export function CreateViewModel({ authToken }) {
         var fileArray = Array.from(files);
         self.images(fileArray); // Save the selected images
         if (fileArray.length === 0) {
-            self.imagesError('Please select at least one image.');
+            self.imagesError(true);
         } else {
-            self.imagesError(''); // Clear error if images are selected
+            self.imagesError(false); // Clear error if images are selected
         }
     };
 
@@ -55,31 +55,31 @@ export function CreateViewModel({ authToken }) {
         let isValid = true;
 
         if (!self.sku()) {
-            self.skuError('SKU is required.');
+            self.skuError(true);
             isValid = false;
         }
         if (!self.code()) {
-            self.codeError('Code is required.');
+            self.codeError(true);
             isValid = false;
         }
         if (!self.name()) {
-            self.nameError('Product name is required.');
+            self.nameError(true);
             isValid = false;
         }
         if (!self.description()) {
-            self.descriptionError('Description is required.');
+            self.descriptionError(true);
             isValid = false;
         }
         if (!self.price()) {
-            self.priceError('Price is required.');
+            self.priceError(true);
             isValid = false;
         }
         if (!self.currency()) {
-            self.currencyError('Currency is required.');
+            self.currencyError(true);
             isValid = false;
         }
         if (!self.images().length) {
-            self.imagesError('Please upload at least one image.');
+            self.imagesError(true);
             isValid = false;
         }
 
