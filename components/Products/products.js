@@ -180,7 +180,7 @@ export function ProductsViewModel({authToken, context}) {
             );
         }
         self.getData = function(token) {
-            
+            console.log("HOLAAA", this.allProducts())
             $.ajax({
                 url: "http://vps.churrasco.digital:3000/products",
                 method: "GET",
