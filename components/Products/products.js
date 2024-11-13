@@ -15,6 +15,8 @@ export function ProductsViewModel({authToken, context, products}) {
         event.target.src = 'https://t3.ftcdn.net/jpg/02/50/33/04/360_F_250330477_Um6OZzyxn5zV1TfrMAtedCFkyKnwXqqs.jpg'
     }
 
+
+
     // Pagination
         // Pagination Variables
         self.productsPerPage = 15

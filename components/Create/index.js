@@ -4,6 +4,10 @@ export function CreateViewModel({ authToken, context, products }) {
 
     self.backPage = function() {context.redirect('#/products')}
 
+
+    //Loader
+    self.isLoading = ko.observable(false)
+
     // Product data
     self.sku = ko.observable('');
     self.code = ko.observable('');
@@ -96,6 +100,10 @@ export function CreateViewModel({ authToken, context, products }) {
     self.submitForm = function() {
         if (!self.validateForm()) return; // Stop if validation fails
 
+        if(self.isLoading()) return;
+
+        self.isLoading(true)
+
         var formData = {
             SKU: self.sku(),
             code: self.code(),
@@ -166,7 +174,8 @@ export function CreateViewModel({ authToken, context, products }) {
                         self.backPage()
                     })    
                 },
-                error: function() {context.redirect("/")}
+                error: () => context.redirect("/"),
+                complete: () => self.isLoading(false)
             });
         }).catch(function() {console.error("Error uploading images");});
     };
