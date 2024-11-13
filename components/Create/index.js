@@ -1,9 +1,7 @@
 export function CreateViewModel({ authToken, context }) {
     var self = this;
 
-    self.backPage = function() {
-        context.redirect('#/products')
-    }
+    self.backPage = function() {context.redirect('#/products')}
 
     // Product data
     self.sku = ko.observable('');
@@ -93,11 +91,7 @@ export function CreateViewModel({ authToken, context }) {
     };
 
     // Method to submit the form
-    self.submitForm = function() {      
-        // Clear the images array
-        document.getElementById('upload-picture').value = ''
-        self.images([]);
-
+    self.submitForm = function() {
         if (!self.validateForm()) return; // Stop if validation fails
 
         var formData = {
@@ -112,7 +106,7 @@ export function CreateViewModel({ authToken, context }) {
         };
 
         // Upload images to Cloudinary and get the URLs
-        const uploadPromises = Array.from(self.images()).map(function(file) {
+        const uploadPromises = Array.from(self.images()).map((file) =>  {
             return new Promise(function(resolve, reject) {
                 var uploadData = new FormData();
                 uploadData.append('file', file);
@@ -156,25 +150,22 @@ export function CreateViewModel({ authToken, context }) {
                     self.price('');
                     self.currency('');
                     self.images([]); // Clear the images array
+                    
+                    $('#upload-picture').val('')
 
                     // Set isUploaded to true
                     self.isUploaded(true);
 
-                    // Mostrar el modal de éxito al final del proceso
-                    const modal = new bootstrap.Modal(document.getElementById('modal'));
+                    // Show success modal
+                    const modal = new bootstrap.Modal($('#modal'));
                     modal.show();
 
                     $(`#modal .btn-close`).on('click', function() {
                         self.backPage()
                     })    
                 },
-                error: function() {
-                    context.redirect("/")
-                    
-                }
+                error: function() {context.redirect("/")}
             });
-        }).catch(function() {
-            console.error("Error uploading images");
-        });
+        }).catch(function() {console.error("Error uploading images");});
     };
 }

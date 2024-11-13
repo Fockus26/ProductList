@@ -1,7 +1,6 @@
 export function LoginViewModel({loginToken, context}) {
     this.username = ko.observable(localStorage.getItem("username") || "");  
-    this.password = ko.observable("ch411enge"); 
-    this.mensaje = ko.observable(""); 
+    this.password = ko.observable(""); 
     this.isLoading = ko.observable(false); 
     this.rememberMe = ko.observable(localStorage.getItem("rememberMe") === "true");
     this.errorMessage = ko.observable("");
@@ -23,12 +22,12 @@ export function LoginViewModel({loginToken, context}) {
         }
 
         $.ajax({
-            url: "http://vps.churrasco.digital:3000/login",  // URL del endpoint de login
+            url: "http://vps.churrasco.digital:3000/login",  // URL Endpoint login
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ username, password }),  // Enviar datos como JSON
+            data: JSON.stringify({ username, password }),  // Send JSON data
             success: (response) => {
-                // Si la respuesta es exitosa y contiene un token
+                // Success answer and token
                 if (response.token) {
                     if (rememberMe) {
                         localStorage.setItem("rememberMe", "true");
@@ -37,6 +36,7 @@ export function LoginViewModel({loginToken, context}) {
                         localStorage.removeItem("rememberMe");
                         localStorage.removeItem("username");
                     }
+
                     this.loginToken(response.token);
                     this.errorMessage("");
                     this.username("");
@@ -50,8 +50,6 @@ export function LoginViewModel({loginToken, context}) {
             },
             error: (xhr, status, error) => {
                 const {responseJSON: {msg}} = xhr
-               
-                // Si ocurre un error en la solicitud
                 this.errorMessage(`${msg}`);
             },
             complete: () => {

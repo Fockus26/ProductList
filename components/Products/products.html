@@ -3,7 +3,7 @@
     <div data-bind="if: isDataLoaded && allProducts().length">
         <!-- Show Products if there is product data -->
         <nav class="d-flex justify-content-between align-items-center mb-3">
-            <div data-bind='event: { mouseover: handleShowOptions }' class="sort">
+            <div data-bind='event: { mouseenter: handleShowOptions, mouseleave: handleShowOptions }' class="sort">
                 <button class="btn btn-md d-flex gap-2 align-items-center p-0">
                     <i class="bi"></i>
                     <span>Sort</span>
@@ -12,7 +12,7 @@
 
                 <ul class="options rounded-2" data-bind="if: showOptions" >
                     <div data-bind="foreach: options">
-                        <div data-bind="click: () => $parent.selectOption($data.title), event: { mouseout: $parent.handleShowOptions }" class="option d-flex align-items-center justify-content-between">
+                        <div data-bind="click: () => $parent.selectOption($data.title)" class="option d-flex align-items-center justify-content-between">
                             <li data-bind="text: $data.title">
                             </li>
 
@@ -25,19 +25,6 @@
             <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2 large">Add Product <i class="bi bi-plus-circle-fill"></i></a>
             <a href="#/create" class="btn btn-md add text fw-bold d-flex gap-2 small">Add<i class="bi bi-plus-circle-fill"></i></a>
         </nav>
-
-        <!-- Filter -->
-        <div data-bind="if: showCurrencies">
-            <section class="panel-currencies">
-                <h4 class="text-center">Select your currency</h4>
-                <ul data-bind="foreach: currencies">
-                    <div>
-                        <button role="checkbox"></button>
-                        <li data-bind="text: $data"></li>
-                    </div>
-                </ul>
-            </section>
-        </div>
 
         <!-- Products -->
         <main class="products" data-bind="foreach: batchProducts()[actualPage()]">
@@ -65,7 +52,7 @@
                     <h3 class="card-title" data-bind="text: name"></h3>
                     <p class="card-text description" data-bind="text: description"></p>
                     <p class="card-text price"><strong><span data-bind="text: pricing"></span></strong></p>
-                    <p class="card-text sku" data-bind="text: sku, visible: sku"></p>
+                    <p class="card-text sku" data-bind="text: 'SKU: ' + sku"></p>
                 </div>
             </article>
         </main>

@@ -3,6 +3,7 @@ import { Product } from "./product"
 export function ProductsViewModel({authToken, context}) {
 
     const self = this
+
     // Banner Variables
     self.banner = {
         src: 'https://www.goya.com/media/3815/argentinean-grilled-steaks-with-salsa-criolla.jpg?quality=80',
@@ -22,7 +23,7 @@ export function ProductsViewModel({authToken, context}) {
         self.nextPage = ko.observable(self.actualPage() + 1)
         self.isNextPage = ko.observable(self)
         self.prevPage = ko.observable(self.actualPage() - 1)
-        self.isPrevPage = ko.observable(self)
+        self.isPrevPage = ko.observable(self.actualPage() > 1)
         self.scrollTimeout = null;
         // Adds styles based on pagination
         self.updatePaginationStyles = function() {
@@ -63,13 +64,16 @@ export function ProductsViewModel({authToken, context}) {
 
             // Updates pagination styles after changing the page
             this.updatePaginationStyles();
-            // Si ya existe un temporizador, cancelarlo
+            // Cancel timeout
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
-            // Espera 2 segundos antes de hacer scroll hasta el contenedor de los productos
+            // Wait 2 seconds
             this.scrollTimeout = setTimeout(() => {
-                document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+                $(".container")[0].scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
             }, 500); 
         }
 
@@ -109,7 +113,7 @@ export function ProductsViewModel({authToken, context}) {
             $sortIcon?.addClass(`bi-sort-${direction}`);
         }
         // Handles the options
-        self.handleShowOptions = function() {
+        self.handleShowOptions = function(data, event) {
             self.showOptions(!self.showOptions())
             self.swapFilterIcon()
             
@@ -178,17 +182,17 @@ export function ProductsViewModel({authToken, context}) {
         self.getData = function(token) {
             
             $.ajax({
-                url: "http://vps.churrasco.digital:3000/products", 
+                url: "http://vps.churrasco.digital:3000/products",
                 method: "GET",
                 contentType: "application/json",
                 headers: {'Authorization': 'Bearer ' + token},
                 success: (response) => {
                     if (response) {
                         // Gets all products
-                        this.allProducts(response.map(({ name, description, price, sku, currency, pictures }) => new Product({ name, description, price, sku, currency, pictures })))
-                        console.log(this.allProducts())
+                        this.allProducts(response.map(({ name, description, price, SKU, currency, pictures }) => new Product({ name, description, price, sku:SKU, currency, pictures })))
                         // Gets the total number of pages based on the products per page
                         this.totalPages(Math.ceil(this.allProducts().length / this.productsPerPage))
+                        self.isNextPage(self.actualPage() < this.totalPages())
                         // Groups products into batches based on the maximum products per page
                         this.groupProducts()
 
