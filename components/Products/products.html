@@ -1,7 +1,7 @@
 <div class="container" id="products">
     <img class="banner" data-bind="attr: { src: banner.src, alt: banner.alt }">
     <div data-bind="if: isDataLoaded && allProducts().length">
-        <!-- Muestro los productos si hay -->
+        <!-- Show Products if there is product data -->
         <nav class="d-flex justify-content-between align-items-center mb-3">
             <div class="sort">
                 <button data-bind="click: handleShowOptions" class="btn btn-md d-flex gap-2 align-items-center p-0">
@@ -39,9 +39,9 @@
             </section>
         </div>
 
-        <!-- Productos -->
+        <!-- Products -->
         <main class="products" data-bind="foreach: batchProducts()[actualPage()]">
-            <!-- Producto -->
+            <!-- Product -->
             <article class="product card border-0" >
                 <img class="card-img-top" data-bind="attr: { src: pictures, alt: name }, event: { error: $parent.errorImg }" />
             
@@ -92,7 +92,7 @@
     </div>
     <div data-bind="ifnot: isDataLoaded">
         <main class="skeleton row row-cols-3">
-            <!-- Producto -->
+            <!-- Skeleton Loader -->
             <article class="col" >
                 <div class="card border-0 loading-product">
                     <span class="card-img-top"></span>
