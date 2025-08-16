@@ -104,3 +104,5 @@ Vite - For bundling and serving the application during development.
 Cesar Leon - Front End Developer - 
 Mail: kaos4everl@gmail.com
 Linkedin: https://www.linkedin.com/in/cesar-leon-634940236/
+
+Cesar Leon - Front End Developer - Mail: alejandrorey2654@gmail.com
