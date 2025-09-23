@@ -1,108 +1,165 @@
-# Single Page Application with Knockout.js, Sammy, and Bootstrap
+# 🛍️ ProductList – SPA Challenge
 
-This project is a SPA (Single Page Application) built with **Knockout.js** for data binding, **Sammy** for routing, **Bootstrap** and **CSS** for styling, and **jQuery** for handling some data operations. The application includes three main views:
+**English**
 
-1. **Login**: Login form.
-2. **Products**: Displays a list of products.
-3. **Create**: Form to add new products.
+A single-page application (SPA) built with Knockout.js, Sammy.js, and Bootstrap as part of a coding challenge. The app allows users to log in, view a product list, and add new products.
 
-## Table of Contents
+**Español**
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Component Description](#component-description)
-- [Routes](#routes)
-- [Styling](#styling)
-- [Libraries and Tools](#libraries-and-tools)
-- [Authors](#authors)
+Una aplicación de una sola página (SPA) desarrollada con Knockout.js, Sammy.js y Bootstrap como parte de un reto técnico. La app permite a los usuarios iniciar sesión, visualizar una lista de productos y agregar nuevos productos.
 
 ---
 
-### Requirements
+## 🌍 Overview / Descripción
 
-To run this project locally, you need:
+**English**
 
-- **Node.js** (version 14 or higher)
-- **npm** (version 6 or higher)
+ProductList was developed as part of a job interview challenge, achieving second place in the final results. The goal was to design a functional SPA with authentication, product listing, and product creation features. Routing is handled by Sammy.js, data binding by Knockout.js, and styling by Bootstrap and custom CSS.
 
-### Installation
+**Español**
 
-In your terminal follow this steps.
+ProductList fue desarrollado como parte de un reto para una entrevista de trabajo, alcanzando el segundo lugar en los resultados finales. El objetivo era crear una SPA funcional con autenticación, listado de productos y formulario de creación de productos. El enrutamiento está gestionado con Sammy.js, el data binding con Knockout.js, y el estilo con Bootstrap y CSS personalizado.
 
-1. Install dependencies using npm install
-2. Run server using npm run dev.
+---
 
-### Project Structure
+## ✨ Features / Características
 
-├── app/
-│   ├── components/
-│   │   ├── Login/
-│   │   │   ├── login.html
-│   │   │   └── login.js
-│   │   ├── Products/
-│   │   │   ├── products.html
-│   │   │   └── products.js
-│   │   └── Create/
-│   │       ├── index.html
-│   │       └── index.js
-│   ├── styles.css
-│   ├── app.js
-│   └── index.html
-└── package.json
+**English**
 
+- 👤 Login system with token-based authentication
 
-### Component Description
+- 📦 Product listing for authenticated users
 
-- Login Component
+- ➕ Product creation form with validation
 
-File: /components/Login/login.js
-Description: Displays a basic login form where users can enter their credentials. Upon successful login, the user receives a token (loginToken) that grants access to other routes.
-Interface: HTML with Knockout.js for data-binding and Bootstrap for styling.
-Products Component
+- 🔀 Routing handled by Sammy.js (#/products, #/create)
 
-- Products Component
+- 🎨 Responsive UI with Bootstrap + custom CSS
 
-File: /components/Products/products.js
-Description: Displays a list of products retrieved from an API or local data source. Access to this view is restricted to authenticated users.
-Interface: HTML with Knockout.js for data binding and Bootstrap for styling.
-Create Component
+- ⚡ Lightweight and modular SPA architecture
 
-- Create Component
+**Español**
 
- -File: /components/Create/index.js
-Description: Provides a form to add new products to the list. This view is also restricted to authenticated users.
-Interface: HTML with Knockout.js and jQuery for data submission, with Bootstrap for styling.
-Routes
-The routing is managed by Sammy and defined in the app.js file within the AppViewModel function. Below are the main application routes:
+- 👤 Sistema de login con autenticación basada en token
 
-### Routes
+- 📦 Listado de productos disponible para usuarios autenticados
 
-#/products: Displays the list of products. Requires authentication.
-#/create: Displays the form to add new products. Requires authentication.
-Usage Example
-After opening the app, start with the Login view where you enter your credentials.
-Once authenticated, navigate to the Products view to see the list of available products.
-Use the Create view to add new products to the list.
+- ➕ Formulario de creación de productos con validación
 
+- 🔀 Ruteo manejado con Sammy.js (#/products, #/create)
 
-### Styling
-The project uses Bootstrap and custom CSS for responsive layouts and styling. Each component has its HTML structure defined in separate files (.html) for better modularity, styled using both Bootstrap classes and additional CSS.
+- 🎨 Interfaz responsiva con Bootstrap + CSS personalizado
 
+- ⚡ Arquitectura SPA ligera y modular
 
-### Libraries and Tools
-Knockout.js - For declarative data binding.
-Sammy - For routing and navigation.
-Bootstrap - For styling and layout.
-jQuery - For handling data operations and some DOM manipulations.
-Vite - For bundling and serving the application during development.
+---
 
+## 🛠️ Tech Stack / Tecnologías
 
+- **Framework:** Knockout.js
 
-### Authors
+- **Routing:** Sammy.js
 
-Cesar Leon - Front End Developer - 
-Mail: kaos4everl@gmail.com
-Linkedin: https://www.linkedin.com/in/cesar-leon-634940236/
+- **Styling:** Bootstrap + CSS
 
-Cesar Leon - Front End Developer - Mail: alejandrorey2654@gmail.com
+- **Helpers:** jQuery para operaciones de datos
+
+- **Bundler:** Vite
+
+---
+
+## 📂 Project Structure / Estructura del Proyecto
+
+```text
+app/
+ ├── components/
+ │   ├── Login/
+ │   │   ├── login.html
+ │   │   └── login.js
+ │   ├── Products/
+ │   │   ├── products.html
+ │   │   └── products.js
+ │   └── Create/
+ │       ├── index.html
+ │       └── index.js
+ ├── styles.css
+ ├── app.js
+ └── index.html
+package.json
+```
+
+---
+
+## ⚙️ Installation & Setup / Instalación y Configuración
+
+### Requirements / Requisitos
+
+- Node.js (v14 o superior)
+
+- npm (v6 o superior)
+
+### Clone repo / Clonar repositorio
+```bash
+git clone https://github.com/tu-org/productlist.git
+cd productlist
+```
+
+### Install dependencies / Instalar dependencias
+```bash
+npm install
+```
+
+### Run in development / Ejecutar en desarrollo
+```bash
+npm run dev
+```
+
+Default server: http://localhost:5173
+
+---
+
+## 📖 Case Study / Estudio de Caso
+
+**English**
+
+This project was completed as a coding challenge for a job interview, where I finished second place. It showcased my ability to quickly design a modular SPA using Knockout.js, implement token-based authentication, and integrate routing with Sammy.js.
+
+**Español**
+
+Este proyecto fue realizado como parte de un reto técnico en una entrevista de trabajo, donde obtuve el segundo lugar. Demostró mi capacidad para diseñar rápidamente una SPA modular con Knockout.js, implementar autenticación con tokens e integrar enrutamiento con Sammy.js.
+
+---
+
+### 📈 Future Improvements / Mejoras Futuras
+
+**English**
+
+- 🔐 Add password recovery and better session handling
+
+- 📊 Integrate product persistence with a backend API
+
+- 🧪 Add unit tests for components
+
+- 🌐 Deploy demo version online
+
+**Español**
+
+- 🔐 Agregar recuperación de contraseña y mejor manejo de sesión
+
+- 📊 Integrar persistencia de productos con una API backend
+
+- 🧪 Agregar pruebas unitarias para componentes
+
+- 🌐 Desplegar versión demo en línea
+
+---
+
+## 📜 License / Licencia
+
+**English**
+
+This project is licensed under the MIT License – you are free to use, modify, and distribute it with proper attribution.
+
+**Español**
+
+Este proyecto está licenciado bajo la Licencia MIT – eres libre de usarlo, modificarlo y distribuirlo con la debida atribución.
