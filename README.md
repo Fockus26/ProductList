@@ -52,6 +52,10 @@ app/
  └── index.html
 package.json
 ```
+---
+
+## 📸 Showcase
+_(Screenshots, GIFs, or demo videos will be added here)_
 
 ---
 
