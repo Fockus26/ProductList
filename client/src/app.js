@@ -8,6 +8,19 @@ import { CreateViewModel } from "./components/Create/create.js";
 
 import "./styles.css";
 
+console.log("app.js running", {
+  ko: typeof ko,
+  jQuery: typeof jQuery,
+  $: typeof $,
+  Sammy: typeof Sammy,
+});
+
+if (typeof ko === "undefined") {
+  console.error(
+    "KO (knockout) is undefined. Make sure knockout is loaded before the bundle."
+  );
+}
+
 function AppViewModel() {
   this.loginToken = ko.observable(localStorage.getItem("loginToken") || "");
   this.allProducts = ko.observableArray([]);

@@ -32,7 +32,7 @@ Routing is handled by Sammy.js, data binding by Knockout.js, and styling by Boot
 ### 🛍 Products
 
 ![Products Gif](./assets/gifs/Products.gif)
-![Product Screenshot](./assets/screenshot/Products.png)
+![Product Screenshot](./assets/screenshots/Products.png)
 
 ### 🛒 Add Product
 
