@@ -1,0 +1,372 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "1234",
+      "token": "fake-jwt-admin"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Churrasco Premium",
+      "description": "Juicy churrasco cut",
+      "price": 25,
+      "SKU": "SKU-001",
+      "currency": "$",
+      "pictures": [
+        "https://www.shutterstock.com/image-photo/barbecue-ancho-steak-on-600nw-1496856407.jpg",
+        "https://showcircus.com.br/wp-content/uploads/2022/04/Show-CIrcus-Buffet-Churrasco-Pocket-17.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Costilla BBQ",
+      "description": "Tender ribs with BBQ sauce",
+      "price": 30,
+      "SKU": "SKU-002",
+      "currency": "$",
+      "pictures": [
+        "https://assets.tmecosys.com/image/upload/t_web_rdp_recipe_584x480/img/recipe/ras/Assets/f4cd1d4eef2741cb85701b34335b400a/Derivates/5e11d1d81f9f99e70d6f81aed2808ffcc87f6a56.jpg",
+        "https://cdn0.uncomo.com/es/posts/3/9/5/como_hacer_costillas_bbq_en_sarten_50593_orig.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Café Latte",
+      "description": "Rich espresso with steamed milk",
+      "price": 4,
+      "SKU": "SKU-003",
+      "currency": "$",
+      "pictures": [
+        "https://images.ctfassets.net/0e6jqcgsrcye/53teNK4AvvmFIkFLtEJSEx/4d3751dcad227c87b3cf6bda955b1649/Cafe_au_lait.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Cappuccino Italiano",
+      "description": "Classic Italian cappuccino with foam",
+      "price": 4.5,
+      "SKU": "SKU-004",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3JCS9lrOqbrfD1HQr1fwS40OYMIy-XOOF7w&s"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Sushi California Roll",
+      "description": "Crab, avocado, cucumber wrapped in rice and seaweed",
+      "price": 12,
+      "SKU": "SKU-005",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTYQYycjLs1qQmudHn2euaFGSsEAt-W0YHQQ&s"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Sushi Nigiri Salmon",
+      "description": "Fresh salmon on rice",
+      "price": 15,
+      "SKU": "SKU-006",
+      "currency": "$",
+      "pictures": [
+        "https://www.mardenoruega.es/globalassets/recipes/salmon/sushi-nigirisalmon.jpg?width=1100&height=964&transform=downFill&hash=99a924832e165fa5da93a2a739187cc3"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Hamburguesa Clásica",
+      "description": "Beef patty with cheese, lettuce, tomato",
+      "price": 10,
+      "SKU": "SKU-007",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdzO-z2ZG6_TXAJ2MLEhP-8WBeHuO-7eI0eg&s",
+        "https://www.serargentino.com/public/images/2021/01/16109941330-17-burger-773x458.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Papas Fritas Gourmet",
+      "description": "Crispy golden fries with truffle oil",
+      "price": 6,
+      "SKU": "SKU-008",
+      "currency": "$",
+      "pictures": [
+        "https://www.infobae.com/new-resizer/pmHsfHNbRAy1KZjgy46DZpTi-nM=/arc-anglerfish-arc2-prod-infobae/public/XF2NIIPBCNDZFDCKNSALDYUMUY.jpg"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Pizza Margarita",
+      "description": "Tomato, mozzarella, basil",
+      "price": 14,
+      "SKU": "SKU-009",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR9h0zvaWlpy5U3u9gVzlEFedDddtTs8jf6Q&s"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Pizza Pepperoni",
+      "description": "Classic pepperoni with mozzarella",
+      "price": 16,
+      "SKU": "SKU-010",
+      "currency": "$",
+      "pictures": [
+        "https://www.paulinacocina.net/wp-content/uploads/2024/10/receta-pizza-de-pepperoni-facil-1729847335.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ2NXqInkOW1qZjAttMuNIXr0pmjc3kap3Ww&s"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Ensalada César",
+      "description": "Romaine lettuce with parmesan and croutons",
+      "price": 8,
+      "SKU": "SKU-011",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5PCRwKIcR5ysRjsv0x72oEEtznPP1DrwzTA&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTy81pAPUwU8QlvkQNTt4zHQAT1f3KDjgFc9w&s"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Ramen Tonkotsu",
+      "description": "Rich pork broth with noodles and egg",
+      "price": 13,
+      "SKU": "SKU-012",
+      "currency": "$",
+      "pictures": [
+        "https://www.foodandwine.com/thmb/0AXGLeY6dYnY8sEXFqxBa8opDrs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Tonkotsu-Ramen-FT-BLOG1122-8fe6c12d609a4fd4ab246bea3aae140e.jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Tacos al Pastor",
+      "description": "Marinated pork tacos with pineapple",
+      "price": 9,
+      "SKU": "SKU-013",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXiNsnnAfPLpQdWnxXVBCSpen0f_Prp31lig&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrrl4PPqkv_RdLUQJDWEV-TIYpphzAh9KcMQ&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHlJj-7ghBM8zZZMujJtX7ojiC9hzI5wK1TQ&s"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Arepas Venezolanas",
+      "description": "Cornmeal patties stuffed with cheese and ham",
+      "price": 7,
+      "SKU": "SKU-014",
+      "currency": "$",
+      "pictures": [
+        "https://noticias.com.ve/wp-content/uploads/2017/08/Ajidulce_arepa_rack-1038x649.jpg",
+        "https://adnamerica.com/sites/default/files/styles/social_media/public/2023-05/arepas%20venezolanas.jpg?itok=r36SU4GE",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkJansFstajkie67ct7PnvPA6h3iXDPwhkfw&s",
+        "https://mandolina.co/wp-content/uploads/2024/05/arepas-ven-1-1200x746.jpg"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Paella Valenciana",
+      "description": "Saffron rice with seafood and chicken",
+      "price": 20,
+      "SKU": "SKU-015",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI4Hw1tYONFPTzh90JZBNmUF9Jv6Bptzuj3Q&s"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Croissant de Chocolate",
+      "description": "Flaky French pastry with chocolate",
+      "price": 3.5,
+      "SKU": "SKU-016",
+      "currency": "$",
+      "pictures": [
+        "https://comedera.com/wp-content/uploads/sites/9/2022/02/croissant-relleno-de-chocolate.jpg"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Crepe de Nutella",
+      "description": "Thin French crepe with Nutella and strawberries",
+      "price": 5,
+      "SKU": "SKU-017",
+      "currency": "$",
+      "pictures": [
+        "https://archersfood.com/wp-content/uploads/2025/02/IMG_1874.jpeg",
+        "https://www.aheadofthyme.com/wp-content/uploads/2020/01/nutella-crepes.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMwKzIWk2TxnSYZSOYpwWEkTGZCB1rAXidg&s"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Ceviche Peruano",
+      "description": "Fresh fish marinated in lime juice",
+      "price": 12,
+      "SKU": "SKU-018",
+      "currency": "$",
+      "pictures": [
+        "https://images.mrcook.app/recipe-image/01938e4c-092e-7f12-83d3-091dad660806?cacheKey=U3VuLCAxMiBKYW4gMjAyNSAwMzozODoyNCBHTVQ="
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Lomo Saltado",
+      "description": "Peruvian stir-fried beef with onions and tomatoes",
+      "price": 15,
+      "SKU": "SKU-019",
+      "currency": "$",
+      "pictures": [
+        "https://www.goya.com/wp-content/uploads/2023/10/lomo-saltado-peruvian-beef-stir-fry-and-potatoes.jpg"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Empanadas Argentinas",
+      "description": "Pastry filled with beef and spices",
+      "price": 6,
+      "SKU": "SKU-020",
+      "currency": "$",
+      "pictures": [
+        "https://www.paulinacocina.net/wp-content/uploads/2023/10/como-hacer-empanadas-argentinas-paulina-cocina-recetas-800x450.jpg"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Bandeja Paisa",
+      "description": "Colombian platter with beans, rice, pork, and plantain",
+      "price": 18,
+      "SKU": "SKU-021",
+      "currency": "$",
+      "pictures": [
+        "https://cdn.colombia.com/gastronomia/2011/08/02/bandeja-paisa-1616-1.gif",
+        "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/7ZLBIEXDAFEUFB2MXROVEX2DHI.jpg"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Sopa de Pollo",
+      "description": "Comforting chicken soup with vegetables",
+      "price": 8,
+      "SKU": "SKU-022",
+      "currency": "$",
+      "pictures": [
+        "https://www.cocinadominicana.com/wp-content/uploads/2024/05/sopa-de-pollo-recipe-chicken-soup-GLZ7731.jpg"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Falafel Wrap",
+      "description": "Chickpea patties with veggies and tahini sauce",
+      "price": 9,
+      "SKU": "SKU-023",
+      "currency": "$",
+      "pictures": [
+        "https://makefoodlovely.com/wp-content/uploads/2025/01/Copycat-Starbucks-Spicy-Falafel-Pocket-Recipe.png",
+        "https://www.chiselandfork.com/wp-content/uploads/2023/08/falafel-wrap-2.jpg"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Pad Thai",
+      "description": "Thai stir-fried noodles with shrimp and peanuts",
+      "price": 13,
+      "SKU": "SKU-024",
+      "currency": "$",
+      "pictures": [
+        "https://upload.wikimedia.org/wikipedia/commons/3/39/Phat_Thai_kung_Chang_Khien_street_stall.jpg"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Canelé de Bordeaux",
+      "description": "Small French pastry with caramelized crust",
+      "price": 4,
+      "SKU": "SKU-025",
+      "currency": "$",
+      "pictures": [
+        "https://www.daringgourmet.com/wp-content/uploads/2020/11/Caneles-7.jpg"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Baguette Tradicional",
+      "description": "Classic French bread loaf",
+      "price": 3,
+      "SKU": "SKU-026",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQhpAs-hGqnOndfWyS-AXfhy5kSleqWPNIGg&s"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Chocotorta",
+      "description": "Argentinian dessert with chocolate and cream cheese",
+      "price": 6,
+      "SKU": "SKU-027",
+      "currency": "$",
+      "pictures": [
+        "https://cdn.recetasderechupete.com/wp-content/uploads/2021/03/Chocotorta.jpg"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Tiramisu",
+      "description": "Classic Italian coffee-flavored dessert",
+      "price": 7,
+      "SKU": "SKU-028",
+      "currency": "$",
+      "pictures": [
+        "https://www.reluctantgourmet.com/wp-content/uploads/2012/07/classic-tiramisu-r.jpg",
+        "https://www.kingarthurbaking.com/sites/default/files/2023-03/Tiramisu_1426.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFCg1hAGTJzWBeWI3Pxn2Ly8jJ4Nqw-DGCog&s"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Café Mocha",
+      "description": "Espresso with chocolate and steamed milk",
+      "price": 4.5,
+      "SKU": "SKU-029",
+      "currency": "$",
+      "pictures": [
+        "https://www.shutterstock.com/image-photo/hot-chocolate-whipped-cream-pieces-600nw-2162920957.jpg",
+        "https://revive.arkorganicsug.com/wp-content/uploads/2024/10/CafeMocha-hero.61028a28.jpg"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Smoothie Tropical",
+      "description": "Mango, pineapple, banana blend",
+      "price": 5,
+      "SKU": "SKU-030",
+      "currency": "$",
+      "pictures": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4aycVN5P-XbLmBWTg7vopKNroEDfhtgcf2g&s",
+        "https://bakerbynature.com/wp-content/uploads/2020/06/Tropical-Smoothie-223.jpg"
+      ]
+    },
+    {
+      "id": 1760738332807,
+      "SKU": "SKU-031",
+      "code": "1",
+      "name": "Palmeritas",
+      "currency": "USD",
+      "description": "La palmera, palmerita, oreja, orejita, palmita o corazón de hojaldre es una especialidad de repostería dulce de origen francés.",
+      "price": "1",
+      "pictures": [
+        "https://res.cloudinary.com/drspvzzg8/image/upload/v1760738332/image_2025-10-17_175849618_gargta.png"
+      ]
+    }
+  ]
+}
