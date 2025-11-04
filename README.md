@@ -1,4 +1,4 @@
-# 🛍️ ProductList – SPA Challenge
+# 🛍️ Product List – SPA Challenge
 
 A single-page application (SPA) built with Knockout.js, Sammy.js, and Bootstrap as part of a coding challenge. Users can log in, view a product list, and add new products.
 
